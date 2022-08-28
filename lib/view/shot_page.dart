@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shot_dev/view/answer.dart';
 import 'question.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ShotPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return ShotPageState();
-  }
-}
+final counterProvider = StateProvider((ref) => 0);
 
-class ShotPageState extends State<ShotPage> {
+class ShotPage extends HookConsumerWidget {
+  const ShotPage({
+    Key? key,
+  }) : super(key: key);
+
   void test() {
     Text("Test");
   }
 
-  var questionIndex = 0;
-  void answerQuestion() {
-    setState(() {
-      questionIndex = questionIndex + 1;
-    });
-    print(questionIndex);
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final counter = ref.watch(counterProvider);
     var questions = ["q1", "q2", "q3"];
+    void _answerQuestion() {
+      ref.read(counterProvider.state).state++;
+      print(counterProvider);
+    }
+
     return Container(
         // decoration: const BoxDecoration(
         //     gradient: LinearGradient(
@@ -35,12 +33,18 @@ class ShotPageState extends State<ShotPage> {
         color: Colors.white,
         child: Column(
           children: [
-            Question(questions[questionIndex]),
+            Question(questions[counter]),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
             ElevatedButton(
-              onPressed: answerQuestion,
+              onPressed: () => ref.read(counterProvider.state).state++,
               child: const Text('Answer1'),
             ),
             ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.green)),
               onPressed: () => print("test"),
               child: const Text('test'),
             ),
