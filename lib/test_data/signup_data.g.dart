@@ -11,6 +11,7 @@ _$_SignUpData _$$_SignUpDataFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String,
       name: json['name'] as String,
       password: json['password'] as String,
+      processing: json['processing'] as bool,
     );
 
 Map<String, dynamic> _$$_SignUpDataToJson(_$_SignUpData instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_SignUpDataToJson(_$_SignUpData instance) =>
       'email': instance.email,
       'name': instance.name,
       'password': instance.password,
+      'processing': instance.processing,
     };

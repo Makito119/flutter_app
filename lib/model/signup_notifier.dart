@@ -14,16 +14,21 @@ class SignUpNotifier extends StateNotifier<SignUpData> {
           email: '',
           password: '',
           name: '',
+          processing: false,
         ));
   void emailInput(index) {
-    state = state.copyWith(email : index);
+    state = state.copyWith(email: index);
   }
+
   void nameInput(index) {
-    state = state.copyWith(name : index);
+    state = state.copyWith(name: index);
   }
+
   void passwordInput(index) {
-    state = state.copyWith(password : index);
+    state = state.copyWith(password: index);
+  }
+
+  void processtotrue() {
+    state = state.copyWith(processing: true);
   }
 }
-
- 

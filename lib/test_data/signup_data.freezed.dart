@@ -23,6 +23,7 @@ mixin _$SignUpData {
   String get email => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
+  bool get processing => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $SignUpDataCopyWith<$Res> {
   factory $SignUpDataCopyWith(
           SignUpData value, $Res Function(SignUpData) then) =
       _$SignUpDataCopyWithImpl<$Res>;
-  $Res call({String email, String name, String password});
+  $Res call({String email, String name, String password, bool processing});
 }
 
 /// @nodoc
@@ -51,6 +52,7 @@ class _$SignUpDataCopyWithImpl<$Res> implements $SignUpDataCopyWith<$Res> {
     Object? email = freezed,
     Object? name = freezed,
     Object? password = freezed,
+    Object? processing = freezed,
   }) {
     return _then(_value.copyWith(
       email: email == freezed
@@ -65,6 +67,10 @@ class _$SignUpDataCopyWithImpl<$Res> implements $SignUpDataCopyWith<$Res> {
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      processing: processing == freezed
+          ? _value.processing
+          : processing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -76,7 +82,7 @@ abstract class _$$_SignUpDataCopyWith<$Res>
           _$_SignUpData value, $Res Function(_$_SignUpData) then) =
       __$$_SignUpDataCopyWithImpl<$Res>;
   @override
-  $Res call({String email, String name, String password});
+  $Res call({String email, String name, String password, bool processing});
 }
 
 /// @nodoc
@@ -94,6 +100,7 @@ class __$$_SignUpDataCopyWithImpl<$Res> extends _$SignUpDataCopyWithImpl<$Res>
     Object? email = freezed,
     Object? name = freezed,
     Object? password = freezed,
+    Object? processing = freezed,
   }) {
     return _then(_$_SignUpData(
       email: email == freezed
@@ -108,6 +115,10 @@ class __$$_SignUpDataCopyWithImpl<$Res> extends _$SignUpDataCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      processing: processing == freezed
+          ? _value.processing
+          : processing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -116,7 +127,10 @@ class __$$_SignUpDataCopyWithImpl<$Res> extends _$SignUpDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SignUpData implements _SignUpData {
   const _$_SignUpData(
-      {required this.email, required this.name, required this.password});
+      {required this.email,
+      required this.name,
+      required this.password,
+      required this.processing});
 
   factory _$_SignUpData.fromJson(Map<String, dynamic> json) =>
       _$$_SignUpDataFromJson(json);
@@ -127,10 +141,12 @@ class _$_SignUpData implements _SignUpData {
   final String name;
   @override
   final String password;
+  @override
+  final bool processing;
 
   @override
   String toString() {
-    return 'SignUpData(email: $email, name: $name, password: $password)';
+    return 'SignUpData(email: $email, name: $name, password: $password, processing: $processing)';
   }
 
   @override
@@ -140,7 +156,9 @@ class _$_SignUpData implements _SignUpData {
             other is _$_SignUpData &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.password, password));
+            const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality()
+                .equals(other.processing, processing));
   }
 
   @JsonKey(ignore: true)
@@ -149,7 +167,8 @@ class _$_SignUpData implements _SignUpData {
       runtimeType,
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(password));
+      const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(processing));
 
   @JsonKey(ignore: true)
   @override
@@ -168,7 +187,8 @@ abstract class _SignUpData implements SignUpData {
   const factory _SignUpData(
       {required final String email,
       required final String name,
-      required final String password}) = _$_SignUpData;
+      required final String password,
+      required final bool processing}) = _$_SignUpData;
 
   factory _SignUpData.fromJson(Map<String, dynamic> json) =
       _$_SignUpData.fromJson;
@@ -179,6 +199,8 @@ abstract class _SignUpData implements SignUpData {
   String get name;
   @override
   String get password;
+  @override
+  bool get processing;
   @override
   @JsonKey(ignore: true)
   _$$_SignUpDataCopyWith<_$_SignUpData> get copyWith =>

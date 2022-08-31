@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_shot_dev/model/profilepage_notifier.dart';
 import 'package:flutter_shot_dev/test_data/homepage_data.dart';
 import 'package:flutter_shot_dev/test_data/profilepage_data.dart';
@@ -10,18 +11,17 @@ class MyHomePage extends HookConsumerWidget {
     Key? key,
   }) : super(key: key);
   final _appBarName = ['ゲーム', 'ショットページ', 'プロフィール'];
-  bool visible = true;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     HomePageData homePageData = ref.watch(homepageProvider);
-    ProfilePageData profilePageData = ref.watch(profilepageProvider);
+    print(homePageData.bottomNaviChange);
     return Scaffold(
         extendBody: true,
-        appBar: homePageData.bottomNaviChange != 2
-            ? AppBar(
+        appBar: homePageData.bottomNaviChange != 0
+            ? null
+            : AppBar(
                 backgroundColor: Color(0xff2c233a),
-                title: Text(_appBarName[homePageData.bottomNaviChange]))
-            : null,
+                title: Text(_appBarName[homePageData.bottomNaviChange])),
         body: homePageData.pageList[homePageData.bottomNaviChange],
         bottomNavigationBar: AnimatedContainer(
           duration: Duration(milliseconds: 500),

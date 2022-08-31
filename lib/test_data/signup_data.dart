@@ -9,6 +9,7 @@ class SignUpData with _$SignUpData {
     required String email,
     required String name,
     required String password,
+   required bool processing,
 
 
   }) = _SignUpData;

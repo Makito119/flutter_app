@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_shot_dev/model/signup_notifier.dart';
+import 'package:flutter_shot_dev/test_data/signup_data.dart';
 import 'package:flutter_shot_dev/view/profile/signup.dart';
 import 'package:flutter_shot_dev/widgets/auth_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,7 +14,10 @@ class LoginPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    SignUpData signUpData = ref.watch(signUpProvider);
     double screenWidth = MediaQuery.of(context).size.width;
+
+    print(signUpData.processing);
     return Container(
       color: Colors.black,
       child: Scaffold(
@@ -62,45 +69,53 @@ class LoginPage extends HookConsumerWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 120.0, bottom: 10),
-                child: TextButton(
-                    onPressed: () {},
-                    child: SizedBox(
-                      height: 60,
-                      width: screenWidth * 0.9,
-                      child: Container(
-                        child: Center(
-                            child: Text(
-                          'Login',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.w700),
-                        )),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(130),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0x26c26ffe),
-                              blurRadius: 36,
-                              offset: Offset(0, 14),
+              signUpData.processing == true
+                  ? const CircularProgressIndicator()
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 120.0, bottom: 10),
+                      child: TextButton(
+                          onPressed: () async {
+                            ref.read(signUpProvider.notifier).processtotrue();
+                            await FirebaseAuth.instance.signInAnonymously();
+
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, '/home_page', (route) => false);
+                          },
+                          child: SizedBox(
+                            height: 60,
+                            width: screenWidth * 0.9,
+                            child: Container(
+                              child: Center(
+                                  child: Text(
+                                'Login',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                    fontFamily: "Inter",
+                                    fontWeight: FontWeight.w700),
+                              )),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(130),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0x26c26ffe),
+                                    blurRadius: 36,
+                                    offset: Offset(0, 14),
+                                  ),
+                                ],
+                                gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    Color(0xfff56dff),
+                                    Color(0xffdb6bfd),
+                                    Color(0xff7678ff)
+                                  ],
+                                ),
+                              ),
                             ),
-                          ],
-                          gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [
-                              Color(0xfff56dff),
-                              Color(0xffdb6bfd),
-                              Color(0xff7678ff)
-                            ],
-                          ),
-                        ),
-                      ),
-                    )),
-              ),
+                          )),
+                    ),
               SizedBox(
                 height: 50,
                 child:

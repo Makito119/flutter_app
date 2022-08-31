@@ -1,12 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_shot_dev/test_data/homepage_data.dart';
 import 'package:flutter_shot_dev/view/game_page.dart';
-import 'package:flutter_shot_dev/view/shot_page.dart';
+import 'package:flutter_shot_dev/view/quiz/quiz_page.dart';
 import 'package:flutter_shot_dev/view/profile_page.dart';
+import 'package:flutter_shot_dev/view/shot_page.dart';
 
 //using StateNotifierProvider to allow the UI to interact with class
 final homepageProvider =
-    StateNotifierProvider<HomePageNotifier, HomePageData>((ref) {
+    StateNotifierProvider.autoDispose<HomePageNotifier, HomePageData>((ref) {
   return HomePageNotifier(ref.read);
 });
 
@@ -14,7 +15,7 @@ class HomePageNotifier extends StateNotifier<HomePageData> {
   final Reader _read;
   HomePageNotifier(this._read)
       : super(HomePageData(
-          bottomNaviChange: 0,
+          bottomNaviChange: 1,
           hideNavigation: false,
           showNavigation: true,
           pageList: [GamePage(), ShotPage(), ProfilePage()],

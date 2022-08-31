@@ -39,6 +39,9 @@ dependencies:
   hooks_riverpod: ^1.0.4
   flutter_hooks: ^0.18.5+1
   freezed_annotation: ^2.1.0
+  firebase_auth: ^3.7.0
+  firebase_core: ^1.21.1
+  flutter_use: ^0.0.3
 
 
 dev_dependencies:

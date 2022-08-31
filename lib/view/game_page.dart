@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shot_dev/view/game/game1.dart';
-import 'package:flutter_shot_dev/view/shot_page.dart';
+import 'package:flutter_shot_dev/view/quiz/quiz_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final turnlighton = StateProvider<bool>((ref) => false);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 var textFormDecoration = InputDecoration(
+  
   hintText: 'Password',
   prefixIcon: Icon(Icons.lock),
   hintStyle: TextStyle(color: Colors.white24, fontSize: 18),

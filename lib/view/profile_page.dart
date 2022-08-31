@@ -1,51 +1,12 @@
-import 'dart:isolate';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_shot_dev/view/profile/login.dart';
+import 'package:flutter_shot_dev/widgets/alert_dialog.dart';
+import 'package:flutter_shot_dev/widgets/profile_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../model/hoempage_notifier.dart';
 import 'package:flutter_shot_dev/test_data/homepage_data.dart';
-
-class ProfileHeaderLabel extends StatelessWidget {
-  final String headerLabel;
-
-  const ProfileHeaderLabel({
-    Key? key,
-    required this.headerLabel,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 40,
-              width: 50,
-              child: Divider(
-                color: Colors.grey,
-                thickness: 2,
-              ),
-            ),
-            Text(
-              headerLabel,
-              style: const TextStyle(color: Colors.white, fontSize: 30),
-            ),
-            const SizedBox(
-              height: 40,
-              width: 50,
-              child: Divider(
-                color: Colors.grey,
-                thickness: 2,
-              ),
-            ),
-          ],
-        ));
-  }
-}
 
 class ProfilePage extends HookConsumerWidget {
   ProfilePage({
@@ -160,13 +121,28 @@ class ProfilePage extends HookConsumerWidget {
                             width: MediaQuery.of(context).size.width * 0.35,
                             child: const Center(
                               child: Text(
-                                'point record',
+                                'log out',
                                 style: TextStyle(
                                     color: Colors.yellow, fontSize: 22),
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            MyAlertDilaog.showMyDialog(
+                              context: context,
+                              title: 'Log Out',
+                              content: 'are you sure to log out',
+                              tabNo: () {
+                                Navigator.pop(context);
+                              },
+                              tabYes: () async {
+                                await FirebaseAuth.instance.signOut();
+                                Navigator.pop(context);
+                                Navigator.pushReplacementNamed(
+                                    context, '/login_page');
+                              },
+                            );
+                          },
                         ),
                       ),
                       Container(
@@ -201,7 +177,7 @@ class ProfilePage extends HookConsumerWidget {
                 )),
                 child: Column(
                   children: [
-                    ProfileHeaderLabel(headerLabel: '  acount setting  '),
+                    const ProfileHeaderLabel(headerLabel: '  acount setting  '),
                     Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
