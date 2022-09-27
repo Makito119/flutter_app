@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
 
+
+var signupBottonDecoration = BoxDecoration(
+      borderRadius: BorderRadius.circular(130),
+      boxShadow: [
+        BoxShadow(
+          color: Color(0x26c26ffe),
+          blurRadius: 36,
+          offset: Offset(0, 14),
+        ),
+      ],
+      gradient: const LinearGradient(
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+        colors: [Color(0xfff56dff), Color(0xffdb6bfd), Color(0xff7678ff)],
+      ),
+    );
+
 var textFormDecoration = InputDecoration(
-  
   hintText: 'Password',
   prefixIcon: Icon(Icons.lock),
   hintStyle: TextStyle(color: Colors.white24, fontSize: 18),

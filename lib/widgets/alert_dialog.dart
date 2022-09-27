@@ -1,4 +1,19 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class MyMessageHandler {
+  static void showSnackBar(var _scaffoldKey, String message) {
+    _scaffoldKey.currentState!.hideCurrentSnackBar();
+    _scaffoldKey.currentState!.showSnackBar(SnackBar(
+        duration: const Duration(seconds: 2),
+        content: Text(
+          message,
+          style: const TextStyle(fontSize: 18),
+          textAlign: TextAlign.center,
+        )));
+    print('not valid');
+  }
+}
 class MyAlertDilaog {
   static void showMyDialog({
     required BuildContext context,

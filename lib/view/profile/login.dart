@@ -25,8 +25,19 @@ class LoginPage extends HookConsumerWidget {
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 20),
+
+              //   child: IconButton(
+              //     alignment: Alignment.bottomLeft,
+              //     icon: Icon(Icons.chevron_left),
+              //     onPressed: () {},
+              //     color: Colors.white,
+              //     iconSize: 40,
+              //   ),
+              // ),
               Padding(
-                padding: const EdgeInsets.only(top: 200, right: 150),
+                padding: const EdgeInsets.only(top: 180, right: 150),
                 child: Opacity(
                   opacity: 0.5,
                   child: Container(
