@@ -20,27 +20,15 @@ class MyHomePage extends HookConsumerWidget {
         appBar: homePageData.bottomNaviChange != 0
             ? null
             : AppBar(
+                shadowColor: Color(0x7f840899),
+                elevation: 10,
                 backgroundColor: Color(0xff2c233a),
                 title: Text(_appBarName[homePageData.bottomNaviChange])),
         body: homePageData.pageList[homePageData.bottomNaviChange],
         bottomNavigationBar: AnimatedContainer(
           duration: Duration(milliseconds: 500),
-          height: homePageData.showNavigation ? 110 : 0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x59763380),
-                blurRadius: 4,
-                offset: Offset(0, 4),
-              ),
-            ],
-            gradient: const LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Color(0xff423262), Color(0xff282232)],
-            ),
-          ),
+          height: homePageData.showNavigation ? 100 : 0,
+          color: Color(0xff282232),
           child: Wrap(children: [
             BottomNavigationBar(
               backgroundColor: Colors.transparent,

@@ -36,6 +36,7 @@ class LoginPage extends HookConsumerWidget {
               //     iconSize: 40,
               //   ),
               // ),
+
               Padding(
                 padding: const EdgeInsets.only(top: 180, right: 150),
                 child: Opacity(
@@ -57,6 +58,16 @@ class LoginPage extends HookConsumerWidget {
                   ),
                 ),
               ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        "/", ModalRoute.withName('profile_page'));
+                    //Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'ss',
+                    style: TextStyle(color: Colors.white),
+                  )),
               Padding(
                 padding: const EdgeInsets.only(top: 100, left: 10, right: 10),
                 child: TextFormField(
@@ -156,12 +167,8 @@ class LoginPage extends HookConsumerWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0, bottom: 10),
                 child: TextButton(
-                    onPressed: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignupPage()))
-                        },
+                    onPressed: () =>
+                        {Navigator.pushNamed(context, '/signup_page')},
                     child: SizedBox(
                       height: 60,
                       width: screenWidth * 0.9,

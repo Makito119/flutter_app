@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shot_dev/firebase_options.dart';
 import 'package:flutter_shot_dev/view/game_page.dart';
 import 'package:flutter_shot_dev/view/profile/login.dart';
+import 'package:flutter_shot_dev/view/profile/signup.dart';
+import 'package:flutter_shot_dev/view/profile_page.dart';
 import 'package:flutter_shot_dev/view/quiz/quiz_page.dart';
 import 'view/homepage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -22,8 +24,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
+        '/profile_page': (context) => ProfilePage(),
         '/home_page': (context) => MyHomePage(),
-        '/login_page':(context)=> LoginPage(),
+        '/login_page': (context) => LoginPage(),
+        '/signup_page': (context) => SignupPage()
       },
       //title: 'Flutter Demo',
       theme: ThemeData(

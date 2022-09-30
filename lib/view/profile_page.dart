@@ -73,10 +73,7 @@ class ProfilePage extends HookConsumerWidget {
                           ),
                           child: TextButton(
                             onPressed: () => {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginPage()))
+                              Navigator.of(context).pushNamed('/login_page')
                             },
                             child: SizedBox(
                               height: 40,
