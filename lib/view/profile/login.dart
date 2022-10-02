@@ -15,36 +15,45 @@ class LoginPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     SignUpData signUpData = ref.watch(signUpProvider);
-    double screenWidth = MediaQuery.of(context).size.width;
 
     print(signUpData.processing);
-    return Container(
-      color: Colors.black,
-      child: Scaffold(
-          backgroundColor: Colors.black,
-          body: Column(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        reverse: true,
+        child: SafeArea(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 20),
-
-              //   child: IconButton(
-              //     alignment: Alignment.bottomLeft,
-              //     icon: Icon(Icons.chevron_left),
-              //     onPressed: () {},
-              //     color: Colors.white,
-              //     iconSize: 40,
-              //   ),
-              // ),
-
-              Padding(
-                padding: const EdgeInsets.only(top: 180, right: 150),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          "/", ModalRoute.withName('profile_page'));
+                      //Navigator.of(context).pop();
+                    },
+                    child: const Icon(
+                      Icons.clear,
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.07,
+                    bottom: 10.0,
+                    right: MediaQuery.of(context).size.width * 0.4),
                 child: Opacity(
                   opacity: 0.5,
                   child: Container(
                     height: 1,
                     width: 1,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Color(0xff9163f3),
                         boxShadow: [
@@ -58,25 +67,22 @@ class LoginPage extends HookConsumerWidget {
                   ),
                 ),
               ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        "/", ModalRoute.withName('profile_page'));
-                    //Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'ss',
-                    style: TextStyle(color: Colors.white),
-                  )),
               Padding(
-                padding: const EdgeInsets.only(top: 100, left: 10, right: 10),
+                padding: EdgeInsets.only(
+                    right: MediaQuery.of(context).size.width * 0.05,
+                    left: MediaQuery.of(context).size.width * 0.05,
+                    top: MediaQuery.of(context).size.height * 0.12,
+                    bottom: MediaQuery.of(context).size.height * 0.008),
                 child: TextFormField(
+                    keyboardType: TextInputType.multiline,
+                    //validator: ,
                     decoration: textFormDecoration.copyWith(
-                        hintText: 'User Name',
-                        prefixIcon: Icon(Icons.person_outline))),
+                        hintText: 'User Name', prefixIcon: Icon(Icons.person))),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.05,
+                    vertical: MediaQuery.of(context).size.height * 0.008),
                 child: TextFormField(
                     decoration:
                         textFormDecoration.copyWith(hintText: 'Password')),
@@ -94,7 +100,7 @@ class LoginPage extends HookConsumerWidget {
               signUpData.processing == true
                   ? const CircularProgressIndicator()
                   : Padding(
-                      padding: const EdgeInsets.only(top: 120.0, bottom: 10),
+                      padding: const EdgeInsets.only(top: 80.0, bottom: 10),
                       child: TextButton(
                           onPressed: () async {
                             ref.read(signUpProvider.notifier).processtotrue();
@@ -104,8 +110,8 @@ class LoginPage extends HookConsumerWidget {
                                 context, '/home_page', (route) => false);
                           },
                           child: SizedBox(
-                            height: 60,
-                            width: screenWidth * 0.9,
+                            height: MediaQuery.of(context).size.height * 0.065,
+                            width: MediaQuery.of(context).size.width * 0.8,
                             child: Container(
                               child: Center(
                                   child: Text(
@@ -139,11 +145,10 @@ class LoginPage extends HookConsumerWidget {
                           )),
                     ),
               SizedBox(
-                height: 50,
+                height: MediaQuery.of(context).size.height * 0.03,
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   const SizedBox(
-                    height: 40,
                     width: 50,
                     child: Divider(
                       color: Colors.grey,
@@ -152,7 +157,7 @@ class LoginPage extends HookConsumerWidget {
                   ),
                   Text(
                     'Dont have account yet?',
-                    style: const TextStyle(color: Colors.white, fontSize: 20),
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   const SizedBox(
                     height: 40,
@@ -170,8 +175,8 @@ class LoginPage extends HookConsumerWidget {
                     onPressed: () =>
                         {Navigator.pushNamed(context, '/signup_page')},
                     child: SizedBox(
-                      height: 60,
-                      width: screenWidth * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.065,
+                      width: MediaQuery.of(context).size.width * 0.8,
                       child: Container(
                         child: Center(
                             child: Text(
@@ -200,7 +205,9 @@ class LoginPage extends HookConsumerWidget {
                     )),
               ),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

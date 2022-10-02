@@ -153,7 +153,7 @@ class ProfilePage extends HookConsumerWidget {
                             width: MediaQuery.of(context).size.width * 0.35,
                             child: const Center(
                               child: Text(
-                                'point charge',
+                                'point',
                                 style: TextStyle(
                                     color: Colors.yellow, fontSize: 22),
                               ),

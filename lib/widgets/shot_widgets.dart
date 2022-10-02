@@ -47,7 +47,7 @@ class ShotWidgets {
             ),
           ),
           const Align(
-            alignment: Alignment(0.1, 0.4),
+            alignment: Alignment(0.3, 0.4),
             child: Opacity(
               opacity: 0.60,
               child: Text(

@@ -27,7 +27,7 @@ class MyHomePage extends HookConsumerWidget {
         body: homePageData.pageList[homePageData.bottomNaviChange],
         bottomNavigationBar: AnimatedContainer(
           duration: Duration(milliseconds: 500),
-          height: homePageData.showNavigation ? 100 : 0,
+          height: homePageData.showNavigation ? 96 : 0,
           color: Color(0xff282232),
           child: Wrap(children: [
             BottomNavigationBar(
@@ -35,15 +35,15 @@ class MyHomePage extends HookConsumerWidget {
               unselectedItemColor: Colors.white,
               items: const [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.sports_esports, size: 40),
+                  icon: Icon(Icons.sports_esports, size: 38),
                   label: 'GAME',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.wine_bar, size: 40),
+                  icon: Icon(Icons.wine_bar, size: 38),
                   label: 'SHOT',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle, size: 40),
+                  icon: Icon(Icons.account_circle, size: 38),
                   label: 'PROFILE',
                 ),
               ],

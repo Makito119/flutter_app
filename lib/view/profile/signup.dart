@@ -19,29 +19,162 @@ class SignupPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Colors.red,
-      body: SafeArea(
-        child: Column(
-          children: [
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      "/", ModalRoute.withName('profile_page'));
-                  //Navigator.of(context).pop();
-                },
-                child: Text(
-                  'ss',
-                  style: TextStyle(color: Colors.black),
-                )),
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(
-                  'ss',
-                  style: TextStyle(color: Colors.green),
-                )),
-          ],
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        reverse: true,
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            "/", ModalRoute.withName('profile_page'));
+                        //Navigator.of(context).pop();
+                      },
+                      child: const Icon(
+                        Icons.clear,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.07,
+                      bottom: 10.0,
+                      right: MediaQuery.of(context).size.width * 0.4),
+                  child: Opacity(
+                    opacity: 0.5,
+                    child: Container(
+                      height: 1,
+                      width: 1,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xff9163f3),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xff9163f3),
+                              blurRadius: 334,
+                              spreadRadius: 113.0,
+                              //offset: Offset(1, 51))
+                            )
+                          ]),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.05,
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      top: MediaQuery.of(context).size.height * 0.12,
+                      bottom: MediaQuery.of(context).size.height * 0.008),
+                  child: TextFormField(
+                      keyboardType: TextInputType.multiline,
+                      //validator: ,
+                      decoration: textFormDecoration.copyWith(
+                          hintText: 'User Name',
+                          prefixIcon: Icon(Icons.person))),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.05,
+                      vertical: MediaQuery.of(context).size.height * 0.008),
+                  child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      // validator: (value) {
+                      //   if (value!.isEmpty) {
+                      //     return 'please enter your email';
+                      //   } else if (value.isValidEmail() == false) {
+                      //     return 'invalid email';
+                      //   } else if (value.isValidEmail() == true) {}
+                      //   return null;
+                      // },
+                      // onSaved: (value) => _email = value!.trim(),
+                      decoration: textFormDecoration.copyWith(
+                        hintText: 'Email address',
+                        prefixIcon: const Icon(Icons.mail),
+                      )),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.05,
+                      vertical: MediaQuery.of(context).size.height * 0.008),
+                  child: TextFormField(
+                      // obscureText: passwordVisible.value,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'please enter your password';
+                        }
+                        return null;
+                      },
+                      //onSaved: (value) => _password = value!.trim(),
+                      decoration: textFormDecoration.copyWith(
+                          // suffixIcon: IconButton(
+                          //     onPressed: () {
+                          //       passwordVisible.value =
+                          //           !passwordVisible.value;
+                          //     },
+                          //     icon: Icon(
+                          //         passwordVisible.value
+                          //             ? Icons.visibility
+                          //             : Icons.visibility_off,
+                          //         color: Color(0xff9163f3))),
+                          hintText: 'Password')),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.04),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Text('already have account?',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontStyle: FontStyle.italic)),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            'Log In',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xff9163f3),
+                                fontWeight: FontWeight.bold),
+                          )),
+                    ],
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 120.0, bottom: 10),
+                    child: TextButton(
+                      onPressed: () {
+                        //signUp();
+                      },
+                      child: Container(
+                          height: MediaQuery.of(context).size.height * 0.065,
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Center(
+                              child: Text(
+                            'Sign up',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                                fontFamily: "Inter",
+                                fontWeight: FontWeight.w700),
+                          )),
+                          decoration: signupBottonDecoration),
+                    )),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -217,26 +350,7 @@ class SignupPage extends HookConsumerWidget {
 //                                     color: Color(0xff9163f3))),
 //                             hintText: 'Password')),
 //                   ),
-//                   Padding(
-//                       padding: const EdgeInsets.only(top: 120.0, bottom: 10),
-//                       child: TextButton(
-//                         onPressed: () {
-//                           signUp();
-//                         },
-//                         child: Container(
-//                             height: 60,
-//                             width: screenWidth * 0.9,
-//                             child: Center(
-//                                 child: Text(
-//                               'Sign up',
-//                               style: TextStyle(
-//                                   color: Colors.white,
-//                                   fontSize: 22,
-//                                   fontFamily: "Inter",
-//                                   fontWeight: FontWeight.w700),
-//                             )),
-//                             decoration: signupBottonDecoration),
-//                       )),
+//                  
 //                 ],
 //               ),
 //             ),
