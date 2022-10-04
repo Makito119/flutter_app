@@ -21,9 +21,12 @@ class ShotWidgets {
               ),
             ),
           ),
-          Align(
-              alignment: const Alignment(-0.9, 0),
-              child: Container(
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.03),
                 height: MediaQuery.of(context).size.width * 0.15,
                 width: MediaQuery.of(context).size.width * 0.15,
                 decoration: BoxDecoration(
@@ -33,32 +36,35 @@ class ShotWidgets {
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
-              )),
-          const Align(
-            alignment: Alignment(-0.37, -0.4),
-            child: Text(
-              "Scaning",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontFamily: "Inter",
-                fontWeight: FontWeight.w700,
               ),
-            ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Scaning",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Padding(padding: EdgeInsets.only(top:MediaQuery.of(context).size.width * 0.01)),
+                  const Opacity(
+                    opacity: 0.60,
+                    child: Text(
+                      "Come and find your current bar!",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          const Align(
-            alignment: Alignment(0.3, 0.4),
-            child: Opacity(
-              opacity: 0.60,
-              child: Text(
-                "Come and find your current bar!",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          )
         ]));
   }
 }

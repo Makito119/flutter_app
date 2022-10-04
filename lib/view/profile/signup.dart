@@ -47,25 +47,58 @@ class SignupPage extends HookConsumerWidget {
                 Container(
                   margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.07,
-                      bottom: 10.0,
                       right: MediaQuery.of(context).size.width * 0.4),
-                  child: Opacity(
-                    opacity: 0.5,
-                    child: Container(
-                      height: 1,
-                      width: 1,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xff9163f3),
-                          boxShadow: [
-                            BoxShadow(
+                  child: Stack(children: [
+                    Align(
+                      alignment: Alignment(0, 0),
+                      child: Opacity(
+                        opacity: 0.5,
+                        child: Container(
+                          height: 1,
+                          width: 1,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
                               color: Color(0xff9163f3),
-                              blurRadius: 334,
-                              spreadRadius: 113.0,
-                              //offset: Offset(1, 51))
-                            )
-                          ]),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xff9163f3),
+                                  blurRadius: 334,
+                                  spreadRadius: 113.0,
+                                  //offset: Offset(1, 51))
+                                )
+                              ]),
+                        ),
+                      ),
                     ),
+                  ]),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.05),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ShaderMask(
+                        child: Text(
+                          'Let\'s \nget started',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 36,
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        shaderCallback: (Rect rect) {
+                          return LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Color(0xffbfc3ff),
+                                Color(0xfff7a5ff)
+                              ]).createShader(rect);
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 Padding(
