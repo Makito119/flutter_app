@@ -15,6 +15,7 @@ class LoginPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     SignUpData signUpData = ref.watch(signUpProvider);
+    final passwordVisible = useState<bool>(true);
 
     print(signUpData.processing);
     return Scaffold(
@@ -48,29 +49,7 @@ class LoginPage extends HookConsumerWidget {
                   margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.07,
                       right: MediaQuery.of(context).size.width * 0.4),
-                  child: Stack(children: [
-                    Align(
-                      alignment: Alignment(0, 0),
-                      child: Opacity(
-                        opacity: 0.5,
-                        child: Container(
-                          height: 1,
-                          width: 1,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xff9163f3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xff9163f3),
-                                  blurRadius: 334,
-                                  spreadRadius: 113.0,
-                                  //offset: Offset(1, 51))
-                                )
-                              ]),
-                        ),
-                      ),
-                    ),
-                  ]),
+                  child: const purpleBlur(),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -105,7 +84,7 @@ class LoginPage extends HookConsumerWidget {
                   padding: EdgeInsets.only(
                       right: MediaQuery.of(context).size.width * 0.05,
                       left: MediaQuery.of(context).size.width * 0.05,
-                      top: MediaQuery.of(context).size.height * 0.12,
+                      top: MediaQuery.of(context).size.height * 0.05,
                       bottom: MediaQuery.of(context).size.height * 0.008),
                   child: TextFormField(
                       keyboardType: TextInputType.multiline,
@@ -119,8 +98,19 @@ class LoginPage extends HookConsumerWidget {
                       horizontal: MediaQuery.of(context).size.width * 0.05,
                       vertical: MediaQuery.of(context).size.height * 0.008),
                   child: TextFormField(
-                      decoration:
-                          textFormDecoration.copyWith(hintText: 'Password')),
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: passwordVisible.value,
+                      decoration: textFormDecoration.copyWith(
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                passwordVisible.value = !passwordVisible.value;
+                              },
+                              icon: Icon(
+                                  passwordVisible.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Color(0xff9163f3))),
+                          hintText: 'Password')),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 200.0),
@@ -148,36 +138,7 @@ class LoginPage extends HookConsumerWidget {
                               height:
                                   MediaQuery.of(context).size.height * 0.065,
                               width: MediaQuery.of(context).size.width * 0.8,
-                              child: Container(
-                                child: Center(
-                                    child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22,
-                                      fontFamily: "Inter",
-                                      fontWeight: FontWeight.w700),
-                                )),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(130),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x26c26ffe),
-                                      blurRadius: 36,
-                                      offset: Offset(0, 14),
-                                    ),
-                                  ],
-                                  gradient: LinearGradient(
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                    colors: [
-                                      Color(0xfff56dff),
-                                      Color(0xffdb6bfd),
-                                      Color(0xff7678ff)
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              child: const SignUpButton(name: 'Login'),
                             )),
                       ),
                 SizedBox(

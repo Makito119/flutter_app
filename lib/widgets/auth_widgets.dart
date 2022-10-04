@@ -1,4 +1,58 @@
 import 'package:flutter/material.dart';
+class SignUpButton extends StatelessWidget {
+  final String name;
+  const SignUpButton({Key? key, required this.name}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: MediaQuery.of(context).size.height * 0.065,
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: Center(
+            child: Text(
+          name,
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+              fontFamily: "Inter",
+              fontWeight: FontWeight.w700),
+        )),
+        decoration: signupBottonDecoration);
+  }
+}
+
+class purpleBlur extends StatelessWidget {
+  const purpleBlur({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(children: [
+      Align(
+        alignment: Alignment(0, 0),
+        child: Opacity(
+          opacity: 0.5,
+          child: Container(
+            height: 1,
+            width: 1,
+            decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xff9163f3),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xff9163f3),
+                    blurRadius: 334,
+                    spreadRadius: 113.0,
+                    //offset: Offset(1, 51))
+                  )
+                ]),
+          ),
+        ),
+      ),
+    ]);
+  }
+}
 
 var signupBottonDecoration = BoxDecoration(
   borderRadius: BorderRadius.circular(130),
