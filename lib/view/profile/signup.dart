@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shot_dev/model/signup_notifier.dart';
-import 'package:flutter_shot_dev/test_data/signup_data.dart';
-import 'package:flutter_shot_dev/view/shot_page.dart';
 import 'package:flutter_shot_dev/widgets/alert_dialog.dart';
 import 'package:flutter_shot_dev/widgets/auth_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,61 +16,65 @@ class SignupPage extends HookConsumerWidget {
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  CollectionReference customers =
+      FirebaseFirestore.instance.collection('customers');
   late String name;
   late String email;
   late String password;
+  late String _uid;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    void signUp() {
-      // if (_validateAndSave()) {
-      //   try {
-      //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      //         email: _email, password: _password);
+    final passwordVisible = useState<bool>(true);
+    final processing = useState<bool>(false);
+    print(2);
+    print(passwordVisible.value);
+    void signUp() async {
+      processing.value = true;
 
-      //     _uid = FirebaseAuth.instance.currentUser!.uid;
-      //     //firebase_storage.Reference storageRef = firebase_storage.FirebaseStorage.instance.ref('cust-info/$emai')
-      //     await customers.doc(_uid).set({
-      //       'name': _name,
-      //       'email': _email,
-      //       'phone': '',
-      //       'gender': '',
-      //       'birthday': '',
-      //       'cid': _uid
-      //     });
-
-      //     _formKey.currentState!.reset();
-      //     Navigator.pushNamedAndRemoveUntil(
-      //         context, '/home_page', (route) => false);
-      //   } on FirebaseAuthException catch (e) {
-      //     if (e.code == 'weak-password') {
-      //       MyMessageHandler.showSnackBar(
-      //           _scaffoldKey, 'The password provided is too weak');
-      //     } else if (e.code == 'email-already-in-use') {
-      //       MyMessageHandler.showSnackBar(
-      //           _scaffoldKey, 'the account already exists for that email');
-      //     }
-      //   }
-      //   print('valid');
-      //   print(_name);
-      //   print(_email);
-      //   print(_password);
-      // }
       if (_formKey.currentState!.validate()) {
         print('valid');
         print(name);
         print(email);
         print(password);
+        try {
+          await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(email: email, password: password);
+
+          _uid = FirebaseAuth.instance.currentUser!.uid;
+          //firebase_storage.Reference storageRef = firebase_storage.FirebaseStorage.instance.ref('customer-info/$emai')
+          await customers.doc(_uid).set({
+            'name': name,
+            'email': email,
+            'phone': '',
+            'gender': '',
+            'birthday': '',
+            'cid': _uid
+          });
+
+          _formKey.currentState!.reset();
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              "/", ModalRoute.withName('profile_page'));
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'weak-password') {
+            processing.value = false;
+            MyMessageHandler.showSnackBar(
+                _scaffoldKey, 'The password provided is too weak');
+          } else if (e.code == 'email-already-in-use') {
+            processing.value = false;
+            MyMessageHandler.showSnackBar(
+                _scaffoldKey, 'the account already exists for that email');
+          }
+        }
         // print(signUpData.name);
         // print(signUpData.email);
         // print(signUpData.password);
       } else {
+        processing.value = false;
         MyMessageHandler.showSnackBar(_scaffoldKey, 'please fill all fields');
       }
     }
 
-    final passwordVisible = useState<bool>(true);
     return ScaffoldMessenger(
       key: _scaffoldKey,
       child: Scaffold(
@@ -240,14 +242,17 @@ class SignupPage extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 120.0, bottom: 10),
-                        child: TextButton(
-                          onPressed: () {
-                            signUp();
-                          },
-                          child: const SignUpButton(name: 'Sign Up'),
-                        )),
+                    processing.value == true
+                        ? const CircularProgressIndicator()
+                        : Padding(
+                            padding:
+                                const EdgeInsets.only(top: 120.0, bottom: 10),
+                            child: TextButton(
+                              onPressed: () {
+                                signUp();
+                              },
+                              child: const SignUpButton(name: 'Sign Up'),
+                            )),
                   ],
                 ),
               ),
@@ -262,14 +267,6 @@ class SignupPage extends HookConsumerWidget {
 
 
 
-// class SignupPage extends HookConsumerWidget {
-//   const SignupPage({
-//     Key? key,
-//   }) : super(key: key);
-//     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-//     final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
-//         GlobalKey<ScaffoldMessengerState>();
-//
 //   @override
 //   Widget build(BuildContext context, WidgetRef ref) {
 //     SignUpData signUpData = ref.watch(signUpProvider);
@@ -285,84 +282,3 @@ class SignupPage extends HookConsumerWidget {
 //       }
 //       return false;
 //     }
-
-//     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
-//     print(_name);
-//     print(_email);
-//     print(_password);
-
-//     CollectionReference customers =
-//         FirebaseFirestore.instance.collection('customers');
-
-//     return ScaffoldMessenger(
-//       key: _scaffoldKey,
-//       child: Scaffold(
-//         resizeToAvoidBottomInset: true,
-//         backgroundColor: Colors.black,
-//         body: SafeArea(
-//           child: SingleChildScrollView(
-//             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior,
-//             //reverse: true,
-//             child: Form(
-//               key: _formKey,
-//               child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                  
-//                   Padding(
-//                     padding:
-//                         const EdgeInsets.only(top: 100, left: 10, right: 10),
-//                     child: TextFormField(
-//                         keyboardType: TextInputType.multiline,
-//                         validator: (value) {
-//                           if (value!.isEmpty) {
-//                             return 'please enter your full name';
-//                           }
-//                           return null;
-//                         },
-//                         onSaved: (value) => _name = value!.trim(),
-//                         decoration: textFormDecoration.copyWith(
-//                             hintText: 'User Name',
-//                             prefixIcon: Icon(Icons.person_outline))),
-//                   ),
-//                   Padding(
-//                     padding:
-//                         const EdgeInsets.only(top: 20, left: 10, right: 10),
-//                     child: TextFormField(
-//                         validator: (value) {
-//                           if (value!.isEmpty) {
-//                             return 'please enter your email';
-//                           } else if (value.isValidEmail() == false) {
-//                             return 'invalid email';
-//                           } else if (value.isValidEmail() == true) {}
-//                           return null;
-//                         },
-//                         onSaved: (value) => _email = value!.trim(),
-//                         decoration: textFormDecoration.copyWith(
-//                             hintText: 'Email address')),
-//                   ),
-//                   Padding(
-//                     padding:
-//                         const EdgeInsets.only(top: 20, left: 10, right: 10),
-//                     child: TextFormField(
-//                         obscureText: passwordVisible.value,
-//                         validator: (value) {
-//                           if (value!.isEmpty) {
-//                             return 'please enter your password';
-//                           }
-//                           return null;
-//                         },
-//                         onSaved: (value) => _password = value!.trim(),
-//                         decoration: textFormDecoration.copyWith(
-//                             hintText: 'Password')),
-//                   ),
-//                  
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

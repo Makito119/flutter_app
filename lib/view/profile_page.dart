@@ -134,9 +134,8 @@ class ProfilePage extends HookConsumerWidget {
                               },
                               tabYes: () async {
                                 await FirebaseAuth.instance.signOut();
-                                Navigator.pop(context);
-                                Navigator.pushReplacementNamed(
-                                    context, '/login_page');
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    "/", ModalRoute.withName('profile_page'));
                               },
                             );
                           },

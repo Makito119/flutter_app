@@ -131,8 +131,8 @@ class LoginPage extends HookConsumerWidget {
                               ref.read(signUpProvider.notifier).processtotrue();
                               await FirebaseAuth.instance.signInAnonymously();
 
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, '/home_page', (route) => false);
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  "/", ModalRoute.withName('profile_page'));
                             },
                             child: SizedBox(
                               height:
