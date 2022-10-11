@@ -9,7 +9,7 @@ class HomePageData with _$HomePageData {
     required bool hideNavigation,
     required bool showNavigation,
     required int bottomNaviChange,
-    required List pageList,
+   
   }) = _HomePageData;
 
   factory HomePageData.fromJson(Map<String, dynamic> json) =>

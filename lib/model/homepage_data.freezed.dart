@@ -23,7 +23,6 @@ mixin _$HomePageData {
   bool get hideNavigation => throw _privateConstructorUsedError;
   bool get showNavigation => throw _privateConstructorUsedError;
   int get bottomNaviChange => throw _privateConstructorUsedError;
-  List<dynamic> get pageList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,11 +35,7 @@ abstract class $HomePageDataCopyWith<$Res> {
   factory $HomePageDataCopyWith(
           HomePageData value, $Res Function(HomePageData) then) =
       _$HomePageDataCopyWithImpl<$Res>;
-  $Res call(
-      {bool hideNavigation,
-      bool showNavigation,
-      int bottomNaviChange,
-      List<dynamic> pageList});
+  $Res call({bool hideNavigation, bool showNavigation, int bottomNaviChange});
 }
 
 /// @nodoc
@@ -56,7 +51,6 @@ class _$HomePageDataCopyWithImpl<$Res> implements $HomePageDataCopyWith<$Res> {
     Object? hideNavigation = freezed,
     Object? showNavigation = freezed,
     Object? bottomNaviChange = freezed,
-    Object? pageList = freezed,
   }) {
     return _then(_value.copyWith(
       hideNavigation: hideNavigation == freezed
@@ -71,10 +65,6 @@ class _$HomePageDataCopyWithImpl<$Res> implements $HomePageDataCopyWith<$Res> {
           ? _value.bottomNaviChange
           : bottomNaviChange // ignore: cast_nullable_to_non_nullable
               as int,
-      pageList: pageList == freezed
-          ? _value.pageList
-          : pageList // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
     ));
   }
 }
@@ -86,11 +76,7 @@ abstract class _$$_HomePageDataCopyWith<$Res>
           _$_HomePageData value, $Res Function(_$_HomePageData) then) =
       __$$_HomePageDataCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {bool hideNavigation,
-      bool showNavigation,
-      int bottomNaviChange,
-      List<dynamic> pageList});
+  $Res call({bool hideNavigation, bool showNavigation, int bottomNaviChange});
 }
 
 /// @nodoc
@@ -109,7 +95,6 @@ class __$$_HomePageDataCopyWithImpl<$Res>
     Object? hideNavigation = freezed,
     Object? showNavigation = freezed,
     Object? bottomNaviChange = freezed,
-    Object? pageList = freezed,
   }) {
     return _then(_$_HomePageData(
       hideNavigation: hideNavigation == freezed
@@ -124,10 +109,6 @@ class __$$_HomePageDataCopyWithImpl<$Res>
           ? _value.bottomNaviChange
           : bottomNaviChange // ignore: cast_nullable_to_non_nullable
               as int,
-      pageList: pageList == freezed
-          ? _value._pageList
-          : pageList // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
     ));
   }
 }
@@ -138,9 +119,7 @@ class _$_HomePageData implements _HomePageData {
   const _$_HomePageData(
       {required this.hideNavigation,
       required this.showNavigation,
-      required this.bottomNaviChange,
-      required final List<dynamic> pageList})
-      : _pageList = pageList;
+      required this.bottomNaviChange});
 
   factory _$_HomePageData.fromJson(Map<String, dynamic> json) =>
       _$$_HomePageDataFromJson(json);
@@ -151,16 +130,10 @@ class _$_HomePageData implements _HomePageData {
   final bool showNavigation;
   @override
   final int bottomNaviChange;
-  final List<dynamic> _pageList;
-  @override
-  List<dynamic> get pageList {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_pageList);
-  }
 
   @override
   String toString() {
-    return 'HomePageData(hideNavigation: $hideNavigation, showNavigation: $showNavigation, bottomNaviChange: $bottomNaviChange, pageList: $pageList)';
+    return 'HomePageData(hideNavigation: $hideNavigation, showNavigation: $showNavigation, bottomNaviChange: $bottomNaviChange)';
   }
 
   @override
@@ -173,8 +146,7 @@ class _$_HomePageData implements _HomePageData {
             const DeepCollectionEquality()
                 .equals(other.showNavigation, showNavigation) &&
             const DeepCollectionEquality()
-                .equals(other.bottomNaviChange, bottomNaviChange) &&
-            const DeepCollectionEquality().equals(other._pageList, _pageList));
+                .equals(other.bottomNaviChange, bottomNaviChange));
   }
 
   @JsonKey(ignore: true)
@@ -183,8 +155,7 @@ class _$_HomePageData implements _HomePageData {
       runtimeType,
       const DeepCollectionEquality().hash(hideNavigation),
       const DeepCollectionEquality().hash(showNavigation),
-      const DeepCollectionEquality().hash(bottomNaviChange),
-      const DeepCollectionEquality().hash(_pageList));
+      const DeepCollectionEquality().hash(bottomNaviChange));
 
   @JsonKey(ignore: true)
   @override
@@ -203,8 +174,7 @@ abstract class _HomePageData implements HomePageData {
   const factory _HomePageData(
       {required final bool hideNavigation,
       required final bool showNavigation,
-      required final int bottomNaviChange,
-      required final List<dynamic> pageList}) = _$_HomePageData;
+      required final int bottomNaviChange}) = _$_HomePageData;
 
   factory _HomePageData.fromJson(Map<String, dynamic> json) =
       _$_HomePageData.fromJson;
@@ -215,8 +185,6 @@ abstract class _HomePageData implements HomePageData {
   bool get showNavigation;
   @override
   int get bottomNaviChange;
-  @override
-  List<dynamic> get pageList;
   @override
   @JsonKey(ignore: true)
   _$$_HomePageDataCopyWith<_$_HomePageData> get copyWith =>

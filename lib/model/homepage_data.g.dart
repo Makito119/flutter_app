@@ -11,7 +11,6 @@ _$_HomePageData _$$_HomePageDataFromJson(Map<String, dynamic> json) =>
       hideNavigation: json['hideNavigation'] as bool,
       showNavigation: json['showNavigation'] as bool,
       bottomNaviChange: json['bottomNaviChange'] as int,
-      pageList: json['pageList'] as List<dynamic>,
     );
 
 Map<String, dynamic> _$$_HomePageDataToJson(_$_HomePageData instance) =>
@@ -19,5 +18,4 @@ Map<String, dynamic> _$$_HomePageDataToJson(_$_HomePageData instance) =>
       'hideNavigation': instance.hideNavigation,
       'showNavigation': instance.showNavigation,
       'bottomNaviChange': instance.bottomNaviChange,
-      'pageList': instance.pageList,
     };

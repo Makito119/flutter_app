@@ -8,16 +8,12 @@ part of 'signup_data.dart';
 
 _$_SignUpData _$$_SignUpDataFromJson(Map<String, dynamic> json) =>
     _$_SignUpData(
-      email: json['email'] as String,
-      name: json['name'] as String,
-      password: json['password'] as String,
-      processing: json['processing'] as bool,
+      name: json['name'] as String? ?? '',
+      uid: json['uid'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$_SignUpDataToJson(_$_SignUpData instance) =>
     <String, dynamic>{
-      'email': instance.email,
       'name': instance.name,
-      'password': instance.password,
-      'processing': instance.processing,
+      'uid': instance.uid,
     };

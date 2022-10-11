@@ -1,17 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_shot_dev/view/profile/login.dart';
+import 'package:flutter_shot_dev/model/homepage_data.dart';
 import 'package:flutter_shot_dev/view/shot/scancode.dart';
-import 'package:flutter_shot_dev/widgets/alert_dialog.dart';
-import 'package:flutter_shot_dev/widgets/profile_widgets.dart';
 import 'package:flutter_shot_dev/widgets/shot_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../model/hoempage_notifier.dart';
-import 'package:flutter_shot_dev/test_data/homepage_data.dart';
+import '../view_model/hoempage_notifier.dart';
 
 class ShotPage extends HookConsumerWidget {
-  ShotPage({
+  const ShotPage({
     Key? key,
   }) : super(key: key);
 

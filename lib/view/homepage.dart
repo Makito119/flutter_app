@@ -1,16 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_shot_dev/model/profilepage_notifier.dart';
-import 'package:flutter_shot_dev/test_data/homepage_data.dart';
-import 'package:flutter_shot_dev/test_data/profilepage_data.dart';
+import 'package:flutter_shot_dev/model/homepage_data.dart';
+import 'package:flutter_shot_dev/view/game_page.dart';
+import 'package:flutter_shot_dev/view/profile_page.dart';
+import 'package:flutter_shot_dev/view/shot_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../model/hoempage_notifier.dart';
+import '../view_model/hoempage_notifier.dart';
 
 class MyHomePage extends HookConsumerWidget {
   MyHomePage({
     Key? key,
   }) : super(key: key);
   final _appBarName = ['ゲーム', 'ショットページ', 'プロフィール'];
+  final List<Widget> _pageList = [
+    GamePage(),
+    ShotPage(),
+    ProfilePage(),
+  ];
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     HomePageData homePageData = ref.watch(homepageProvider);
@@ -24,7 +31,7 @@ class MyHomePage extends HookConsumerWidget {
                 elevation: 10,
                 backgroundColor: Color(0xff2c233a),
                 title: Text(_appBarName[homePageData.bottomNaviChange])),
-        body: homePageData.pageList[homePageData.bottomNaviChange],
+        body: _pageList[homePageData.bottomNaviChange],
         bottomNavigationBar: AnimatedContainer(
           duration: Duration(milliseconds: 500),
           height: homePageData.showNavigation ? 96 : 0,

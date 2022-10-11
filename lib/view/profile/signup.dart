@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_shot_dev/model/signup_notifier.dart';
 import 'package:flutter_shot_dev/widgets/alert_dialog.dart';
 import 'package:flutter_shot_dev/widgets/auth_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -243,7 +242,9 @@ class SignupPage extends HookConsumerWidget {
                       ),
                     ),
                     processing.value == true
-                        ? const CircularProgressIndicator()
+                        ? const CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation(Color(0xff9163f3)))
                         : Padding(
                             padding:
                                 const EdgeInsets.only(top: 120.0, bottom: 10),
