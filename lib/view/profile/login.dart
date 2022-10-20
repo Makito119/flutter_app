@@ -21,6 +21,7 @@ class LoginPage extends HookConsumerWidget {
     SignUpData signUpData = ref.watch(signUpProvider);
     final passwordVisible = useState<bool>(true);
     final processing = useState<bool>(false);
+    final sendVerification = useState<bool>(false);
 
     void logIn() async {
       processing.value = true;
@@ -28,12 +29,20 @@ class LoginPage extends HookConsumerWidget {
         try {
           await FirebaseAuth.instance
               .signInWithEmailAndPassword(email: email, password: password);
-          _formKey.currentState!.reset();
-          ref
-              .read(signUpProvider.notifier)
-              .uidInput(FirebaseAuth.instance.currentUser!.uid);
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              "/", ModalRoute.withName('profile_page'));
+          await FirebaseAuth.instance.currentUser!.reload();
+          if (FirebaseAuth.instance.currentUser!.emailVerified) {
+            _formKey.currentState!.reset();
+            ref
+                .read(signUpProvider.notifier)
+                .uidInput(FirebaseAuth.instance.currentUser!.uid);
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                "/", ModalRoute.withName('profile_page'));
+          } else {
+            MyMessageHandler.showSnackBar(
+                _scaffoldKey, 'please check your inbox');
+            processing.value = false;
+            sendVerification.value = true;
+          }
         } on FirebaseAuthException catch (e) {
           if (e.code == 'user-not-found') {
             processing.value = false;
@@ -177,12 +186,63 @@ class LoginPage extends HookConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 200.0),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/forget_password');
+                          },
                           child: Text(
                             'Forget password?',
                             style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                         ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0, bottom: 10),
+                        child: sendVerification.value == true
+                            ? TextButton(
+                                onPressed: () async {
+                                  try {
+                                    await FirebaseAuth.instance.currentUser!
+                                        .sendEmailVerification();
+                                  } catch (e) {
+                                    print(e);
+                                  }
+                                  Future.delayed(Duration(seconds: 3))
+                                      .whenComplete(() {
+                                    sendVerification.value = false;
+                                  });
+                                },
+                                child: SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.045,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  child: Container(
+                                    child: Center(
+                                        child: Text(
+                                      'Resend Email Verification',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontFamily: "Inter",
+                                          fontWeight: FontWeight.w400),
+                                    )),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(130),
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 3,
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0x26c26ffe),
+                                          blurRadius: 36,
+                                          offset: Offset(0, 14),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ))
+                            : const SizedBox(),
                       ),
                       processing.value == true
                           ? const CircularProgressIndicator(
@@ -267,6 +327,7 @@ class LoginPage extends HookConsumerWidget {
                               ),
                             )),
                       ),
+                      googleLogInButton()
                     ],
                   ),
                 ),
@@ -274,5 +335,20 @@ class LoginPage extends HookConsumerWidget {
             ),
           ),
         ));
+  }
+
+  Widget googleLogInButton() {
+    return Material(
+      elevation: 3,
+      color: Colors.grey.shade300,
+      borderRadius: BorderRadius.circular(6),
+      child: MaterialButton(
+        onPressed: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [Text('sign in with google')],
+        ),
+      ),
+    );
   }
 }

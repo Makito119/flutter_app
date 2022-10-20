@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_shot_dev/model/homepage_data.dart';
 import 'package:flutter_shot_dev/view/game_page.dart';
 import 'package:flutter_shot_dev/view/profile_page.dart';
 import 'package:flutter_shot_dev/view/shot_page.dart';
+import 'package:flutter_shot_dev/view_model/shotpage_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../view_model/hoempage_notifier.dart';
 
@@ -20,6 +20,7 @@ class MyHomePage extends HookConsumerWidget {
   ];
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    
     HomePageData homePageData = ref.watch(homepageProvider);
     print(homePageData.bottomNaviChange);
     return Scaffold(

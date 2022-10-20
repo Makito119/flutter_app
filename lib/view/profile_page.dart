@@ -51,8 +51,7 @@ class ProfilePage extends HookConsumerWidget {
           controller: scrollController,
           slivers: [
             SliverToBoxAdapter(
-                child: Column(
-              children: [
+              child: Column(children: [
                 FutureBuilder<DocumentSnapshot>(
                     future: customers.doc(signUpData.uid).get(),
                     builder: (BuildContext context,
@@ -340,206 +339,123 @@ class ProfilePage extends HookConsumerWidget {
                         valueColor: AlwaysStoppedAnimation(Color(0xff9163f3)),
                       );
                     }),
-                TextButton(
-                  child: Text(
-                    'log out',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  onPressed: () async {
-                    MyAlertDilaog.showMyDialog(
-                      context: context,
-                      title: 'Log Out',
-                      content: 'are you sure to log out',
-                      tabNo: () {
-                        Navigator.pop(context);
-                      },
-                      tabYes: () async {
-                        await FirebaseAuth.instance.signOut();
-
-                        ref.read(signUpProvider.notifier).uidInput(null);
-                        Navigator.pop(context);
-                        // Navigator.of(context).pushNamedAndRemoveUntil(
-                        //     "/", ModalRoute.withName('profile_page'));
-                      },
-                    );
-                  },
-                ),
-                Padding(padding: const EdgeInsets.only(top: 20)),
                 Container(
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [Color(0xff48366d), Color(0xff2c2339)],
-                  )),
-                  child: Column(
-                    children: [
-                      const ProfileHeaderLabel(
-                          headerLabel: '  acount setting  '),
-                      Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                              height: 275,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Column(
-                                children: const [
-                                  ListTile(
-                                    title: Text(
-                                      'payment method',
-                                      style: TextStyle(fontSize: 22),
-                                    ),
-                                    leading: Icon(Icons.account_balance_wallet,
-                                        size: 30),
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Divider(
-                                        color: Color.fromARGB(255, 77, 18, 88),
-                                        thickness: 1,
-                                      )),
-                                  ListTile(
-                                    title: Text(
-                                      'member information ',
-                                      style: TextStyle(fontSize: 22),
-                                    ),
-                                    leading:
-                                        Icon(Icons.manage_accounts, size: 30),
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Divider(
-                                        color: Color.fromARGB(255, 77, 18, 88),
-                                        thickness: 1,
-                                      )),
-                                  ListTile(
-                                    title: Text(
-                                      'notification/sound',
-                                      style: TextStyle(fontSize: 22),
-                                    ),
-                                    leading: Icon(Icons.tune, size: 30),
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Divider(
-                                        color: Color.fromARGB(255, 77, 18, 88),
-                                        thickness: 1,
-                                      )),
-                                  ListTile(
-                                    title: Text(
-                                      'security and privacy',
-                                      style: TextStyle(fontSize: 22),
-                                    ),
-                                    leading:
-                                        Icon(Icons.verified_user, size: 30),
-                                  ),
-                                ],
-                              ))),
-                      const ProfileHeaderLabel(headerLabel: '  acount info  '),
-                      Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                              height: 275,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Column(
-                                children: const [
-                                  ListTile(
-                                    title: Text(
-                                      'privacy policy',
-                                      style: TextStyle(fontSize: 22),
-                                    ),
-                                    leading: Icon(Icons.policy, size: 30),
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Divider(
-                                        color: Color.fromARGB(255, 77, 18, 88),
-                                        thickness: 1,
-                                      )),
-                                  ListTile(
-                                    title: Text(
-                                      'available stores',
-                                      style: TextStyle(fontSize: 22),
-                                    ),
-                                    leading: Icon(Icons.store, size: 30),
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Divider(
-                                        color: Color.fromARGB(255, 77, 18, 88),
-                                        thickness: 1,
-                                      )),
-                                  ListTile(
-                                    title: Text(
-                                      'how to contact me',
-                                      style: TextStyle(fontSize: 22),
-                                    ),
-                                    leading:
-                                        Icon(Icons.contact_support, size: 30),
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Divider(
-                                        color: Color.fromARGB(255, 77, 18, 88),
-                                        thickness: 1,
-                                      )),
-                                  ListTile(
-                                    title: Text(
-                                      'FAQ',
-                                      style: TextStyle(fontSize: 22),
-                                    ),
-                                    leading:
-                                        Icon(Icons.question_answer, size: 30),
-                                  ),
-                                ],
-                              ))),
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              left: 10.0, right: 10.0, top: 10.0, bottom: 30.0),
-                          child: Container(
-                              height: 135,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Column(
-                                children: const [
-                                  ListTile(
-                                    title: Text(
-                                      'change to member store',
-                                      style: TextStyle(fontSize: 22),
-                                    ),
-                                    leading: Icon(Icons.storefront, size: 30),
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Divider(
-                                        color: Color.fromARGB(255, 77, 18, 88),
-                                        thickness: 1,
-                                      )),
-                                  ListTile(
-                                    title: Text(
-                                      'logout',
-                                      style: TextStyle(fontSize: 22),
-                                    ),
-                                    leading: Icon(Icons.logout, size: 30),
-                                  ),
-                                ],
-                              ))),
-                    ],
+                    height: MediaQuery.of(context).size.height * 0.17,
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30)),
+                    child: Column(
+                      children: const [
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            '会員情報',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          leading: Icon(Icons.manage_accounts),
+                        ),
+                        // Padding(
+                        //     padding: const EdgeInsets.symmetric(horizontal: 20),
+                        //     child: Divider(
+                        //       color: Color.fromARGB(255, 77, 18, 88),
+                        //       thickness: 1,
+                        //     )),
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            '支払い方法',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          leading: Icon(Icons.account_balance_wallet),
+                        ),
+                        // Padding(
+                        //     padding: const EdgeInsets.symmetric(horizontal: 20),
+                        //     child: Divider(
+                        //       color: Colors.white24,
+                        //       thickness: 1,
+                        //     )),
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            '加盟店一覧',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          leading: Icon(Icons.store),
+                        ),
+                      ],
+                    )),
+                Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                        height: 200,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Column(
+                          children: const [
+                            ListTile(
+                              title: Text(
+                                '利用規約',
+                                style: TextStyle(fontSize: 22),
+                              ),
+                              leading: Icon(Icons.policy, size: 30),
+                            ),
+                            Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Divider(
+                                  color: Color.fromARGB(255, 77, 18, 88),
+                                  thickness: 1,
+                                )),
+                            ListTile(
+                              title: Text(
+                                'プライバシーポリシー',
+                                style: TextStyle(fontSize: 22),
+                              ),
+                              leading: Icon(Icons.store, size: 30),
+                            ),
+                            Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Divider(
+                                  color: Color.fromARGB(255, 77, 18, 88),
+                                  thickness: 1,
+                                )),
+                            ListTile(
+                              title: Text(
+                                'お問合せ',
+                                style: TextStyle(fontSize: 22),
+                              ),
+                              leading: Icon(Icons.contact_support, size: 30),
+                            ),
+                          ],
+                        ))),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 10),
+                  child: TextButton(
+                    child: ProfileWidget.logOutBar(context: context),
+                    onPressed: () async {
+                      MyAlertDilaog.showMyDialog(
+                        context: context,
+                        title: 'Log Out',
+                        content: 'are you sure to log out',
+                        tabNo: () {
+                          Navigator.pop(context);
+                        },
+                        tabYes: () async {
+                          await FirebaseAuth.instance.signOut();
+                          ref.read(signUpProvider.notifier).uidInput(null);
+                          Navigator.pop(context);
+                          // Navigator.of(context).pushNamedAndRemoveUntil(
+                          //     "/", ModalRoute.withName('profile_page'));
+                        },
+                      );
+                    },
                   ),
                 ),
-              ],
-            ))
+              ]),
+            )
           ],
         ),
       ),

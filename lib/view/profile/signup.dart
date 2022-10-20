@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shot_dev/view_model/auth_repo.dart';
 import 'package:flutter_shot_dev/widgets/alert_dialog.dart';
 import 'package:flutter_shot_dev/widgets/auth_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -37,8 +38,8 @@ class SignupPage extends HookConsumerWidget {
         print(email);
         print(password);
         try {
-          await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(email: email, password: password);
+          AuthRepo.signUpWithEmailAndPassword(email, password);
+          AuthRepo.sendEmailVerification();
 
           _uid = FirebaseAuth.instance.currentUser!.uid;
           //firebase_storage.Reference storageRef = firebase_storage.FirebaseStorage.instance.ref('customer-info/$emai')
@@ -65,9 +66,6 @@ class SignupPage extends HookConsumerWidget {
                 _scaffoldKey, 'the account already exists for that email');
           }
         }
-        // print(signUpData.name);
-        // print(signUpData.email);
-        // print(signUpData.password);
       } else {
         processing.value = false;
         MyMessageHandler.showSnackBar(_scaffoldKey, 'please fill all fields');
@@ -264,22 +262,3 @@ class SignupPage extends HookConsumerWidget {
     );
   }
 }
-
-
-
-
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     SignUpData signUpData = ref.watch(signUpProvider);
-//     late String _email = '';
-//     late String _password = '';
-//     late String _name = '';
-//     late String _uid;
-//     bool _validateAndSave() {
-//       final form = _formKey.currentState;
-//       if (form!.validate()) {
-//         form.save();
-//         return true;
-//       }
-//       return false;
-//     }
