@@ -340,13 +340,16 @@ class ProfilePage extends HookConsumerWidget {
                       );
                     }),
                 Container(
-                    height: MediaQuery.of(context).size.height * 0.17,
                     width: MediaQuery.of(context).size.width * 0.95,
+                    margin: const EdgeInsets.only(top: 10.0),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30)),
+                        color: Colors.white54,
+                        borderRadius: BorderRadius.circular(25)),
                     child: Column(
                       children: const [
+                        SizedBox(
+                          height: 2,
+                        ),
                         ListTile(
                           dense: true,
                           title: Text(
@@ -354,13 +357,17 @@ class ProfilePage extends HookConsumerWidget {
                             style: TextStyle(fontSize: 20),
                           ),
                           leading: Icon(Icons.manage_accounts),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 32,
+                          ),
                         ),
-                        // Padding(
-                        //     padding: const EdgeInsets.symmetric(horizontal: 20),
-                        //     child: Divider(
-                        //       color: Color.fromARGB(255, 77, 18, 88),
-                        //       thickness: 1,
-                        //     )),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Divider(
+                              color: Colors.white70,
+                              thickness: 1,
+                            )),
                         ListTile(
                           dense: true,
                           title: Text(
@@ -368,13 +375,17 @@ class ProfilePage extends HookConsumerWidget {
                             style: TextStyle(fontSize: 20),
                           ),
                           leading: Icon(Icons.account_balance_wallet),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 32,
+                          ),
                         ),
-                        // Padding(
-                        //     padding: const EdgeInsets.symmetric(horizontal: 20),
-                        //     child: Divider(
-                        //       color: Colors.white24,
-                        //       thickness: 1,
-                        //     )),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Divider(
+                              color: Colors.white70,
+                              thickness: 1,
+                            )),
                         ListTile(
                           dense: true,
                           title: Text(
@@ -382,55 +393,80 @@ class ProfilePage extends HookConsumerWidget {
                             style: TextStyle(fontSize: 20),
                           ),
                           leading: Icon(Icons.store),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 32,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2,
                         ),
                       ],
                     )),
-                Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                        height: 200,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Column(
-                          children: const [
-                            ListTile(
-                              title: Text(
-                                '利用規約',
-                                style: TextStyle(fontSize: 22),
-                              ),
-                              leading: Icon(Icons.policy, size: 30),
-                            ),
-                            Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Divider(
-                                  color: Color.fromARGB(255, 77, 18, 88),
-                                  thickness: 1,
-                                )),
-                            ListTile(
-                              title: Text(
-                                'プライバシーポリシー',
-                                style: TextStyle(fontSize: 22),
-                              ),
-                              leading: Icon(Icons.store, size: 30),
-                            ),
-                            Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Divider(
-                                  color: Color.fromARGB(255, 77, 18, 88),
-                                  thickness: 1,
-                                )),
-                            ListTile(
-                              title: Text(
-                                'お問合せ',
-                                style: TextStyle(fontSize: 22),
-                              ),
-                              leading: Icon(Icons.contact_support, size: 30),
-                            ),
-                          ],
-                        ))),
+                Container(
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    margin: const EdgeInsets.only(top: 10.0),
+                    decoration: BoxDecoration(
+                        color: Colors.white54,
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Column(
+                      children: const [
+                        SizedBox(
+                          height: 2,
+                        ),
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            '利用規約',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          leading: Icon(Icons.policy),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 32,
+                          ),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Divider(
+                              color: Colors.white70,
+                              thickness: 1,
+                            )),
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            'プライバシーポリシー',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          leading: Icon(Icons.verified_user),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 32,
+                          ),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Divider(
+                              color: Colors.white70,
+                              thickness: 1,
+                            )),
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            'お問合せ',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          leading: Icon(Icons.contact_support),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 32,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                      ],
+                    )),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0, bottom: 10),
                   child: TextButton(
