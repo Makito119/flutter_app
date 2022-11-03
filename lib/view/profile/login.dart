@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_shot_dev/model/signup_data.dart';
 import 'package:flutter_shot_dev/view_model/signup_notifier.dart';
 import 'package:flutter_shot_dev/widgets/alert_dialog.dart';
 import 'package:flutter_shot_dev/widgets/auth_widgets.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginPage extends HookConsumerWidget {
@@ -16,6 +18,57 @@ class LoginPage extends HookConsumerWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late String email;
   late String password;
+  late String _uid;
+  CollectionReference customers =
+      FirebaseFirestore.instance.collection('customers');
+  Future<bool> checkIfDocExists(String docId) async {
+    try {
+      var doc = await customers.doc(docId).get();
+      print(doc);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  bool docExists = false;
+
+  Future<UserCredential> signInWithGoogle() async {
+    FirebaseAuth.instance.signOut();
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance
+        .signInWithCredential(credential)
+        .whenComplete(() async {
+      User user = FirebaseAuth.instance.currentUser!;
+      print(googleUser!.id);
+      print(FirebaseAuth.instance.currentUser!.uid);
+      print(user.uid);
+      docExists = await checkIfDocExists(user.uid);
+      //_uid = FirebaseAuth.instance.currentUser!.uid;
+      docExists == false
+          ? await customers.doc(user.uid).set({
+              'name': user.displayName,
+              'email': user.email,
+              'profile_image': user.photoURL,
+              'phone': '',
+              'gender': '',
+              'birthday': '',
+              'cid': user.uid
+            })
+          : print("doc exist");
+    });
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     SignUpData signUpData = ref.watch(signUpProvider);
@@ -30,19 +83,20 @@ class LoginPage extends HookConsumerWidget {
           await FirebaseAuth.instance
               .signInWithEmailAndPassword(email: email, password: password);
           await FirebaseAuth.instance.currentUser!.reload();
-          if (FirebaseAuth.instance.currentUser!.emailVerified) {
-            _formKey.currentState!.reset();
-            ref
-                .read(signUpProvider.notifier)
-                .uidInput(FirebaseAuth.instance.currentUser!.uid);
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                "/", ModalRoute.withName('profile_page'));
-          } else {
-            MyMessageHandler.showSnackBar(
-                _scaffoldKey, 'please check your inbox');
-            processing.value = false;
-            sendVerification.value = true;
-          }
+          //if (FirebaseAuth.instance.currentUser!.emailVerified) {
+          _formKey.currentState!.reset();
+          ref
+              .read(signUpProvider.notifier)
+              .uidInput(FirebaseAuth.instance.currentUser!.uid);
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              "/", ModalRoute.withName('profile_page'));
+          //}
+          // else {
+          //   MyMessageHandler.showSnackBar(
+          //       _scaffoldKey, 'please check your inbox');
+          //   processing.value = false;
+          //   sendVerification.value = true;
+          // }
         } on FirebaseAuthException catch (e) {
           if (e.code == 'user-not-found') {
             processing.value = false;
@@ -327,7 +381,26 @@ class LoginPage extends HookConsumerWidget {
                               ),
                             )),
                       ),
-                      googleLogInButton()
+                      Material(
+                        elevation: 3,
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(6),
+                        child: MaterialButton(
+                          onPressed: () {
+                            signInWithGoogle().then((value) {
+                              _formKey.currentState!.reset();
+                              ref.read(signUpProvider.notifier).uidInput(
+                                  FirebaseAuth.instance.currentUser!.uid);
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  "/", ModalRoute.withName('profile_page'));
+                            });
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [Text('sign in with google')],
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -337,18 +410,27 @@ class LoginPage extends HookConsumerWidget {
         ));
   }
 
-  Widget googleLogInButton() {
-    return Material(
-      elevation: 3,
-      color: Colors.grey.shade300,
-      borderRadius: BorderRadius.circular(6),
-      child: MaterialButton(
-        onPressed: () {},
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [Text('sign in with google')],
-        ),
-      ),
-    );
-  }
+  // Widget googleLogInButton(context,ref) {
+  //   return Material(
+  //     elevation: 3,
+  //     color: Colors.grey.shade300,
+  //     borderRadius: BorderRadius.circular(6),
+  //     child: MaterialButton(
+  //       onPressed: () {
+  //         signInWithGoogle().then((value) {
+  //           _formKey.currentState!.reset();
+  //           ref
+  //               .read(signUpProvider.notifier);
+  //               .uidInput(FirebaseAuth.instance.currentUser!.uid);
+  //               Navigator.of(context).pushNamedAndRemoveUntil(
+  //                   "/", ModalRoute.withName('profile_page'));
+  //             });
+  //       },
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //         children: [Text('sign in with google')],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

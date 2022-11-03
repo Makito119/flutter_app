@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_shot_dev/model/signup_data.dart';
+import 'package:flutter_shot_dev/view/shot/scancode.dart';
 import 'package:flutter_shot_dev/view_model/signup_notifier.dart';
 import 'package:flutter_shot_dev/widgets/alert_dialog.dart';
 import 'package:flutter_shot_dev/widgets/profile_widgets.dart';
@@ -13,7 +14,6 @@ class ProfilePage extends HookConsumerWidget {
   ProfilePage({Key? key}) : super(key: key);
   CollectionReference customers =
       FirebaseFirestore.instance.collection('customers');
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     SignUpData signUpData = ref.watch(signUpProvider);
@@ -27,7 +27,7 @@ class ProfilePage extends HookConsumerWidget {
         ref.read(homepageProvider.notifier).hideNav();
       }
     });
-    print(10);
+    print('現在のuid:');
     print(signUpData.uid);
 
     // return FutureBuilder<DocumentSnapshot>(
@@ -354,12 +354,12 @@ class ProfilePage extends HookConsumerWidget {
                           dense: true,
                           title: Text(
                             '会員情報',
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 17),
                           ),
                           leading: Icon(Icons.manage_accounts),
                           trailing: Icon(
                             Icons.navigate_next,
-                            size: 32,
+                            size: 30,
                           ),
                         ),
                         Padding(
@@ -372,12 +372,12 @@ class ProfilePage extends HookConsumerWidget {
                           dense: true,
                           title: Text(
                             '支払い方法',
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 17),
                           ),
                           leading: Icon(Icons.account_balance_wallet),
                           trailing: Icon(
                             Icons.navigate_next,
-                            size: 32,
+                            size: 30,
                           ),
                         ),
                         Padding(
@@ -390,12 +390,12 @@ class ProfilePage extends HookConsumerWidget {
                           dense: true,
                           title: Text(
                             '加盟店一覧',
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 17),
                           ),
                           leading: Icon(Icons.store),
                           trailing: Icon(
                             Icons.navigate_next,
-                            size: 32,
+                            size: 30,
                           ),
                         ),
                         SizedBox(
@@ -418,12 +418,14 @@ class ProfilePage extends HookConsumerWidget {
                           dense: true,
                           title: Text(
                             '利用規約',
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 17),
                           ),
-                          leading: Icon(Icons.policy),
+                          leading: Icon(
+                            Icons.policy,
+                          ),
                           trailing: Icon(
                             Icons.navigate_next,
-                            size: 32,
+                            size: 30,
                           ),
                         ),
                         Padding(
@@ -436,12 +438,12 @@ class ProfilePage extends HookConsumerWidget {
                           dense: true,
                           title: Text(
                             'プライバシーポリシー',
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 17),
                           ),
                           leading: Icon(Icons.verified_user),
                           trailing: Icon(
                             Icons.navigate_next,
-                            size: 32,
+                            size: 30,
                           ),
                         ),
                         Padding(
@@ -454,12 +456,12 @@ class ProfilePage extends HookConsumerWidget {
                           dense: true,
                           title: Text(
                             'お問合せ',
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 17),
                           ),
                           leading: Icon(Icons.contact_support),
                           trailing: Icon(
                             Icons.navigate_next,
-                            size: 32,
+                            size: 30,
                           ),
                         ),
                         SizedBox(
@@ -467,8 +469,9 @@ class ProfilePage extends HookConsumerWidget {
                         ),
                       ],
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0, bottom: 10),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  padding: const EdgeInsets.only(top: 10),
                   child: TextButton(
                     child: ProfileWidget.logOutBar(context: context),
                     onPressed: () async {

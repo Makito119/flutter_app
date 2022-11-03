@@ -11,6 +11,7 @@ import '../view_model/hoempage_notifier.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 final CarouselController _controller = CarouselController();
+
 class ShotPage extends HookConsumerWidget {
   const ShotPage({
     Key? key,
@@ -18,6 +19,9 @@ class ShotPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final arg = ModalRoute.of(context)!.settings.arguments;
+    print(":ARG");
+    print(arg);
     final signUpData = ref.watch(shotpageProvider);
     final List<Widget> imageSliders = signUpData.imgList
         .map((item) => Container(
@@ -125,7 +129,6 @@ class ShotPage extends HookConsumerWidget {
                           ),
                         ]),
                       ),
-
                       GestureDetector(
                           onTap: () {
                             Navigator.push(

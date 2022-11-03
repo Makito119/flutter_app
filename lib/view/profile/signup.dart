@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shot_dev/view_model/auth_repo.dart';
+import 'package:flutter_shot_dev/view_model/signup_notifier.dart';
 import 'package:flutter_shot_dev/widgets/alert_dialog.dart';
 import 'package:flutter_shot_dev/widgets/auth_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,10 +39,15 @@ class SignupPage extends HookConsumerWidget {
         print(email);
         print(password);
         try {
-          AuthRepo.signUpWithEmailAndPassword(email, password);
-          AuthRepo.sendEmailVerification();
-
+          await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(email: email, password: password);
+          // await FirebaseAuth.instance.signOut();
+          // AuthRepo.signUpWithEmailAndPassword(email, password);
+          // //AuthRepo.sendEmailVerification();
+          // print('look');
+          // await FirebaseAuth.instance.currentUser?.reload();
           _uid = FirebaseAuth.instance.currentUser!.uid;
+          print(_uid);
           //firebase_storage.Reference storageRef = firebase_storage.FirebaseStorage.instance.ref('customer-info/$emai')
           await customers.doc(_uid).set({
             'name': name,
@@ -51,16 +57,24 @@ class SignupPage extends HookConsumerWidget {
             'birthday': '',
             'cid': _uid
           });
+          ref
+              .read(signUpProvider.notifier)
+              .uidInput(FirebaseAuth.instance.currentUser!.uid);
 
           _formKey.currentState!.reset();
           Navigator.of(context).pushNamedAndRemoveUntil(
               "/", ModalRoute.withName('profile_page'));
         } on FirebaseAuthException catch (e) {
+          print(e);
           if (e.code == 'weak-password') {
             processing.value = false;
             MyMessageHandler.showSnackBar(
                 _scaffoldKey, 'The password provided is too weak');
           } else if (e.code == 'email-already-in-use') {
+            processing.value = false;
+            MyMessageHandler.showSnackBar(
+                _scaffoldKey, 'the account already exists for that email');
+          } else if (e.code == 'Null check operator used on a null value') {
             processing.value = false;
             MyMessageHandler.showSnackBar(
                 _scaffoldKey, 'the account already exists for that email');
