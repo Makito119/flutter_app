@@ -5,12 +5,8 @@ part 'signup_data.g.dart';
 @freezed
 class SignUpData with _$SignUpData {
   const factory SignUpData({
-    
-    required String email,
-    required String name,
-    required String password,
-
-
+    @Default('') String? name,
+    @Default('') String? uid,
   }) = _SignUpData;
 
   factory SignUpData.fromJson(Map<String, dynamic> json) =>

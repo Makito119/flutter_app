@@ -1,60 +1,22 @@
-import 'dart:isolate';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_shot_dev/view/profile/login.dart';
+import 'package:flutter_shot_dev/model/signup_data.dart';
+import 'package:flutter_shot_dev/view/shot/scancode.dart';
+import 'package:flutter_shot_dev/view_model/signup_notifier.dart';
+import 'package:flutter_shot_dev/widgets/alert_dialog.dart';
+import 'package:flutter_shot_dev/widgets/profile_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../model/hoempage_notifier.dart';
-import 'package:flutter_shot_dev/test_data/homepage_data.dart';
-
-class ProfileHeaderLabel extends StatelessWidget {
-  final String headerLabel;
-
-  const ProfileHeaderLabel({
-    Key? key,
-    required this.headerLabel,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 40,
-              width: 50,
-              child: Divider(
-                color: Colors.grey,
-                thickness: 2,
-              ),
-            ),
-            Text(
-              headerLabel,
-              style: const TextStyle(color: Colors.white, fontSize: 30),
-            ),
-            const SizedBox(
-              height: 40,
-              width: 50,
-              child: Divider(
-                color: Colors.grey,
-                thickness: 2,
-              ),
-            ),
-          ],
-        ));
-  }
-}
+import '../view_model/hoempage_notifier.dart';
 
 class ProfilePage extends HookConsumerWidget {
-  ProfilePage({
-    Key? key,
-  }) : super(key: key);
-
+  ProfilePage({Key? key}) : super(key: key);
+  CollectionReference customers =
+      FirebaseFirestore.instance.collection('customers');
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    HomePageData homePageData = ref.watch(homepageProvider);
+    SignUpData signUpData = ref.watch(signUpProvider);
     final ScrollController scrollController =
         ScrollController(keepScrollOffset: false);
     scrollController.addListener(() {
@@ -65,308 +27,477 @@ class ProfilePage extends HookConsumerWidget {
         ref.read(homepageProvider.notifier).hideNav();
       }
     });
+    print('現在のuid:');
+    print(signUpData.uid);
 
-    return Stack(children: [
-      Container(
-        height: 300,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.yellow, Colors.brown])),
-      ),
-      CustomScrollView(
-        controller: scrollController,
-        slivers: [
-          SliverAppBar(
-            elevation: 0,
-            backgroundColor: Colors.white,
-            expandedHeight: 110,
-            flexibleSpace: LayoutBuilder(
-              builder: (context, constraints) {
-                return FlexibleSpaceBar(
-                  title: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 200),
-                    opacity: constraints.biggest.height <= 120 ? 1 : 0,
-                    child: const Text('Account',
-                        style: TextStyle(color: Colors.black)),
-                  ),
-                  background: Container(
-                    decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [Colors.yellow, Colors.brown])),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 25.0, left: 30),
-                      child: Row(children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundImage: AssetImage('img/user.png'),
+    // return FutureBuilder<DocumentSnapshot>(
+    //   future: customers.doc(signUpData.uid).get(),
+    //   builder:
+    //       (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+    //     if (snapshot.hasError) {
+    //       return Text("Something went wrong");
+    //     }
+
+    //     if (snapshot.hasData && !snapshot.data!.exists) {
+    return Container(
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+        colors: [Color(0xff48366d), Color(0xff2c2339)],
+      )),
+      child: SafeArea(
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(children: [
+                FutureBuilder<DocumentSnapshot>(
+                    future: customers.doc(signUpData.uid).get(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Text("Something went wrong");
+                      }
+                      if (snapshot.hasData && !snapshot.data!.exists) {
+                        return Container(
+                            width: MediaQuery.of(context).size.width * 0.95,
+                            height: MediaQuery.of(context).size.height * 0.20,
+                            margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                            // decoration: BoxDecoration(
+                            //   color: Colors.white,
+                            //   borderRadius: BorderRadius.circular(20),
+                            // ),
+                            child: Stack(children: [
+                              Align(
+                                alignment: Alignment(0, 0),
+                                child: Opacity(
+                                  opacity: 0.24,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.95,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.20,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0x7f840899),
+                                          blurRadius: 35,
+                                          offset: Offset(0, 8),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment(0, 0),
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.85,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.16,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Color(0xff9e6efd),
+                                  ),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.06,
+                                              left: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.05),
+                                          child: CircleAvatar(
+                                            radius: 30,
+                                            backgroundImage:
+                                                AssetImage('img/user.png'),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.06,
+                                              left: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.05),
+                                          child: Text('GUEST'.toUpperCase(),
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500)),
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment(0, 1),
+                                child: Opacity(
+                                  opacity: 1,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.95,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.08,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white,
+                                      gradient: LinearGradient(
+                                        begin: Alignment.bottomCenter,
+                                        end: Alignment.topCenter,
+                                        colors: [
+                                          Color.fromARGB(255, 145, 131, 172),
+                                          Color.fromARGB(235, 145, 131, 172),
+                                          Color.fromARGB(210, 145, 131, 172),
+                                          Color.fromARGB(130, 145, 131, 172),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment(0, 0.9),
+                                child: Container(
+                                  child: OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                        shape: StadiumBorder(),
+                                        side: BorderSide(color: Colors.white)),
+                                    onPressed: () => {
+                                      Navigator.of(context)
+                                          .pushNamed('/login_page')
+                                    },
+                                    child: Text(
+                                      'Log in/Sign up',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontFamily: "Inter",
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ]));
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        Map<String, dynamic> data =
+                            snapshot.data!.data() as Map<String, dynamic>;
+                        return Container(
+                            width: MediaQuery.of(context).size.width * 0.95,
+                            height: MediaQuery.of(context).size.height * 0.20,
+                            margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                            // decoration: BoxDecoration(
+                            //   color: Colors.white,
+                            //   borderRadius: BorderRadius.circular(20),
+                            // ),
+                            child: Stack(children: [
+                              Align(
+                                alignment: Alignment(0, 0),
+                                child: Opacity(
+                                  opacity: 0.24,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.95,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.20,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0x7f840899),
+                                          blurRadius: 35,
+                                          offset: Offset(0, 8),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment(0, 0),
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.85,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.16,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Color(0xff9e6efd),
+                                  ),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.06,
+                                              left: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.05),
+                                          child: CircleAvatar(
+                                            radius: 30,
+                                            backgroundImage:
+                                                AssetImage('img/user.png'),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.06,
+                                              left: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.05),
+                                          child: Text(
+                                              data['name'].toUpperCase(),
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500)),
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment(0, 1),
+                                child: Opacity(
+                                  opacity: 1,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.95,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.08,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white,
+                                      gradient: LinearGradient(
+                                        begin: Alignment.bottomCenter,
+                                        end: Alignment.topCenter,
+                                        colors: [
+                                          Color.fromARGB(255, 145, 131, 172),
+                                          Color.fromARGB(235, 145, 131, 172),
+                                          Color.fromARGB(210, 145, 131, 172),
+                                          Color.fromARGB(130, 145, 131, 172),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment(0, 0.9),
+                                child: Container(
+                                  child: OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                        shape: StadiumBorder(),
+                                        side: BorderSide(color: Colors.white)),
+                                    onPressed: () => {
+                                      Navigator.of(context)
+                                          .pushNamed('/login_page')
+                                    },
+                                    child: Text(
+                                      'See more',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontFamily: "Inter",
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ]));
+                      }
+                      return CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Color(0xff9163f3)),
+                      );
+                    }),
+                Container(
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    margin: const EdgeInsets.only(top: 10.0),
+                    decoration: BoxDecoration(
+                        color: Colors.white54,
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Column(
+                      children: const [
+                        SizedBox(
+                          height: 2,
+                        ),
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            '会員情報',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                          leading: Icon(Icons.manage_accounts),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 30,
+                          ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 25.0),
-                          child: Text('guest'.toUpperCase(),
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.w600)),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Divider(
+                              color: Colors.white70,
+                              thickness: 1,
+                            )),
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            '支払い方法',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                          leading: Icon(Icons.account_balance_wallet),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 30,
+                          ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 103, 4, 120),
-                            borderRadius: BorderRadius.circular(30),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Divider(
+                              color: Colors.white70,
+                              thickness: 1,
+                            )),
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            '加盟店一覧',
+                            style: TextStyle(fontSize: 17),
                           ),
-                          child: TextButton(
-                            onPressed: () => {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginPage()))
-                            },
-                            child: SizedBox(
-                              height: 40,
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              child: const Center(
-                                child: Text(
-                                  'log in',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 22),
-                                ),
-                              ),
-                            ),
+                          leading: Icon(Icons.store),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 30,
                           ),
-                        )
-                      ]),
-                    ),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                      ],
+                    )),
+                Container(
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    margin: const EdgeInsets.only(top: 10.0),
+                    decoration: BoxDecoration(
+                        color: Colors.white54,
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Column(
+                      children: const [
+                        SizedBox(
+                          height: 2,
+                        ),
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            '利用規約',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                          leading: Icon(
+                            Icons.policy,
+                          ),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 30,
+                          ),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Divider(
+                              color: Colors.white70,
+                              thickness: 1,
+                            )),
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            'プライバシーポリシー',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                          leading: Icon(Icons.verified_user),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 30,
+                          ),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Divider(
+                              color: Colors.white70,
+                              thickness: 1,
+                            )),
+                        ListTile(
+                          dense: true,
+                          title: Text(
+                            'お問合せ',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                          leading: Icon(Icons.contact_support),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            size: 30,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                      ],
+                    )),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  padding: const EdgeInsets.only(top: 10),
+                  child: TextButton(
+                    child: ProfileWidget.logOutBar(context: context),
+                    onPressed: () async {
+                      MyAlertDilaog.showMyDialog(
+                        context: context,
+                        title: 'Log Out',
+                        content: 'are you sure to log out',
+                        tabNo: () {
+                          Navigator.pop(context);
+                        },
+                        tabYes: () async {
+                          await FirebaseAuth.instance.signOut();
+                          ref.read(signUpProvider.notifier).uidInput(null);
+                          Navigator.pop(context);
+                          // Navigator.of(context).pushNamedAndRemoveUntil(
+                          //     "/", ModalRoute.withName('profile_page'));
+                        },
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-          ),
-          SliverToBoxAdapter(
-              child: Column(
-            children: [
-              Container(
-                  height: 80,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black54,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: TextButton(
-                          child: SizedBox(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width * 0.35,
-                            child: const Center(
-                              child: Text(
-                                'point record',
-                                style: TextStyle(
-                                    color: Colors.yellow, fontSize: 22),
-                              ),
-                            ),
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black54,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: TextButton(
-                          child: SizedBox(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width * 0.35,
-                            child: const Center(
-                              child: Text(
-                                'point charge',
-                                style: TextStyle(
-                                    color: Colors.yellow, fontSize: 22),
-                              ),
-                            ),
-                          ),
-                          onPressed: () {},
-                        ),
-                      )
-                    ],
-                  )),
-              Padding(padding: const EdgeInsets.only(top: 20)),
-              Container(
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [Color(0xff48366d), Color(0xff2c2339)],
-                )),
-                child: Column(
-                  children: [
-                    ProfileHeaderLabel(headerLabel: '  acount setting  '),
-                    Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                            height: 275,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Column(
-                              children: const [
-                                ListTile(
-                                  title: Text(
-                                    'payment method',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  leading: Icon(Icons.account_balance_wallet,
-                                      size: 30),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Divider(
-                                      color: Color.fromARGB(255, 77, 18, 88),
-                                      thickness: 1,
-                                    )),
-                                ListTile(
-                                  title: Text(
-                                    'member information ',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  leading:
-                                      Icon(Icons.manage_accounts, size: 30),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Divider(
-                                      color: Color.fromARGB(255, 77, 18, 88),
-                                      thickness: 1,
-                                    )),
-                                ListTile(
-                                  title: Text(
-                                    'notification/sound',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  leading: Icon(Icons.tune, size: 30),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Divider(
-                                      color: Color.fromARGB(255, 77, 18, 88),
-                                      thickness: 1,
-                                    )),
-                                ListTile(
-                                  title: Text(
-                                    'security and privacy',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  leading: Icon(Icons.verified_user, size: 30),
-                                ),
-                              ],
-                            ))),
-                    const ProfileHeaderLabel(headerLabel: '  acount info  '),
-                    Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                            height: 275,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Column(
-                              children: const [
-                                ListTile(
-                                  title: Text(
-                                    'privacy policy',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  leading: Icon(Icons.policy, size: 30),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Divider(
-                                      color: Color.fromARGB(255, 77, 18, 88),
-                                      thickness: 1,
-                                    )),
-                                ListTile(
-                                  title: Text(
-                                    'available stores',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  leading: Icon(Icons.store, size: 30),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Divider(
-                                      color: Color.fromARGB(255, 77, 18, 88),
-                                      thickness: 1,
-                                    )),
-                                ListTile(
-                                  title: Text(
-                                    'how to contact me',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  leading:
-                                      Icon(Icons.contact_support, size: 30),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Divider(
-                                      color: Color.fromARGB(255, 77, 18, 88),
-                                      thickness: 1,
-                                    )),
-                                ListTile(
-                                  title: Text(
-                                    'FAQ',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  leading:
-                                      Icon(Icons.question_answer, size: 30),
-                                ),
-                              ],
-                            ))),
-                    Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10.0, right: 10.0, top: 10.0, bottom: 30.0),
-                        child: Container(
-                            height: 135,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Column(
-                              children: const [
-                                ListTile(
-                                  title: Text(
-                                    'change to member store',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  leading: Icon(Icons.storefront, size: 30),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Divider(
-                                      color: Color.fromARGB(255, 77, 18, 88),
-                                      thickness: 1,
-                                    )),
-                                ListTile(
-                                  title: Text(
-                                    'logout',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  leading: Icon(Icons.logout, size: 30),
-                                ),
-                              ],
-                            ))),
-                  ],
                 ),
-              ),
-            ],
-          ))
-        ],
+              ]),
+            )
+          ],
+        ),
       ),
-    ]);
+    );
   }
 }

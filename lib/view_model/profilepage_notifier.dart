@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_shot_dev/test_data/profilepage_data.dart';
+import 'package:flutter_shot_dev/model/profilepage_data.dart';
 
 //using StateNotifierProvider to allow the UI to interact with class
 final profilepageProvider =
@@ -11,7 +11,7 @@ final profilepageProvider =
 class ProfilePageNotifier extends StateNotifier<ProfilePageData> {
   final Reader _read;
   ProfilePageNotifier(this._read)
-      : super(ProfilePageData(
+      : super(const ProfilePageData(
           showNavigation: true,
         ));
 

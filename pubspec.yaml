@@ -35,11 +35,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.1.1+1
   dot_navigation_bar: ^1.0.1+4
-  flutter_gradient_colors: ^2.1.1
   hooks_riverpod: ^1.0.4
   flutter_hooks: ^0.18.5+1
   freezed_annotation: ^2.1.0
-
+  firebase_auth: ^3.7.0
+  firebase_core: ^1.21.1
+  flutter_use: ^0.0.3
+  firebase_storage: ^10.3.8
+  cloud_firestore: ^3.4.7
+  qr_code_scanner: ^1.0.1
+  carousel_slider: ^4.1.1
+  google_sign_in: ^5.4.2
 
 dev_dependencies:
   flutter_test:
