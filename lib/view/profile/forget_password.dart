@@ -115,8 +115,8 @@ class ForgetPassword extends HookConsumerWidget {
                         print('form not valid');
                       }
                     },
-                    child: const SizedBox(
-                      width: 300,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.7,
                       height: 50,
                       child: SignUpButton(name: '送信する'),
                     ),
