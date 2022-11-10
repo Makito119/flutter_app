@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_shot_dev/firebase_options.dart';
 import 'package:flutter_shot_dev/view/profile/forget_password.dart';
 import 'package:flutter_shot_dev/view/profile/login.dart';
@@ -24,7 +25,9 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(shotpageProvider.notifier).fetchFirstPosts();
+    useEffect(() {
+      ref.read(shotpageProvider.notifier).fetchFirstPosts();
+    }, const []);
     return MaterialApp(
       routes: {
         '/profile_page': (context) => ProfilePage(),

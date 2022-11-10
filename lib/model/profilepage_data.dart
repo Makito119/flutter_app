@@ -1,16 +1,13 @@
+import 'package:flutter_shot_dev/model/model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'profilepage_data.freezed.dart';
-part 'profilepage_data.g.dart';
+
 
 @freezed
 class ProfilePageData with _$ProfilePageData {
+  const ProfilePageData._();
   const factory ProfilePageData({
-    
- 
-    required bool showNavigation,
-
+    @Default(true) bool showNavigation,
+    @Default(<StoreListModel>[]) List<StoreListModel> storeList,
   }) = _ProfilePageData;
-
-  factory ProfilePageData.fromJson(Map<String, dynamic> json) =>
-      _$ProfilePageDataFromJson(json);
 }

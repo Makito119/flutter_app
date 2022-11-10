@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_shot_dev/model/signup_data.dart';
-import 'package:flutter_shot_dev/view/profile/storelist.dart';
-import 'package:flutter_shot_dev/view/shot/scancode.dart';
 import 'package:flutter_shot_dev/view_model/signup_notifier.dart';
 import 'package:flutter_shot_dev/widgets/alert_dialog.dart';
 import 'package:flutter_shot_dev/widgets/profile_widgets.dart';
@@ -348,10 +346,10 @@ class ProfilePage extends HookConsumerWidget {
                         borderRadius: BorderRadius.circular(25)),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 2,
                         ),
-                        ListTile(
+                        const ListTile(
                           dense: true,
                           title: Text(
                             '会員情報',
@@ -363,13 +361,13 @@ class ProfilePage extends HookConsumerWidget {
                             size: 30,
                           ),
                         ),
-                        Padding(
+                        const Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Divider(
                               color: Colors.white70,
                               thickness: 1,
                             )),
-                        ListTile(
+                        const ListTile(
                           dense: true,
                           title: Text(
                             '支払い方法',
@@ -381,7 +379,7 @@ class ProfilePage extends HookConsumerWidget {
                             size: 30,
                           ),
                         ),
-                        Padding(
+                        const Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Divider(
                               color: Colors.white70,
@@ -399,7 +397,7 @@ class ProfilePage extends HookConsumerWidget {
                               size: 30,
                             ),
                             onTap: () => {
-                                  Navigator.of(context).pushNamed('store_list')
+                                  Navigator.of(context).pushNamed('/store_list')
                                 }),
                         SizedBox(
                           height: 2,

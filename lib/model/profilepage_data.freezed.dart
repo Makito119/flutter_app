@@ -14,15 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ProfilePageData _$ProfilePageDataFromJson(Map<String, dynamic> json) {
-  return _ProfilePageData.fromJson(json);
-}
-
 /// @nodoc
 mixin _$ProfilePageData {
   bool get showNavigation => throw _privateConstructorUsedError;
+  List<StoreListModel> get storeList => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ProfilePageDataCopyWith<ProfilePageData> get copyWith =>
       throw _privateConstructorUsedError;
@@ -33,7 +29,7 @@ abstract class $ProfilePageDataCopyWith<$Res> {
   factory $ProfilePageDataCopyWith(
           ProfilePageData value, $Res Function(ProfilePageData) then) =
       _$ProfilePageDataCopyWithImpl<$Res>;
-  $Res call({bool showNavigation});
+  $Res call({bool showNavigation, List<StoreListModel> storeList});
 }
 
 /// @nodoc
@@ -48,12 +44,17 @@ class _$ProfilePageDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? showNavigation = freezed,
+    Object? storeList = freezed,
   }) {
     return _then(_value.copyWith(
       showNavigation: showNavigation == freezed
           ? _value.showNavigation
           : showNavigation // ignore: cast_nullable_to_non_nullable
               as bool,
+      storeList: storeList == freezed
+          ? _value.storeList
+          : storeList // ignore: cast_nullable_to_non_nullable
+              as List<StoreListModel>,
     ));
   }
 }
@@ -65,7 +66,7 @@ abstract class _$$_ProfilePageDataCopyWith<$Res>
           _$_ProfilePageData value, $Res Function(_$_ProfilePageData) then) =
       __$$_ProfilePageDataCopyWithImpl<$Res>;
   @override
-  $Res call({bool showNavigation});
+  $Res call({bool showNavigation, List<StoreListModel> storeList});
 }
 
 /// @nodoc
@@ -82,30 +83,44 @@ class __$$_ProfilePageDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? showNavigation = freezed,
+    Object? storeList = freezed,
   }) {
     return _then(_$_ProfilePageData(
       showNavigation: showNavigation == freezed
           ? _value.showNavigation
           : showNavigation // ignore: cast_nullable_to_non_nullable
               as bool,
+      storeList: storeList == freezed
+          ? _value._storeList
+          : storeList // ignore: cast_nullable_to_non_nullable
+              as List<StoreListModel>,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_ProfilePageData implements _ProfilePageData {
-  const _$_ProfilePageData({required this.showNavigation});
 
-  factory _$_ProfilePageData.fromJson(Map<String, dynamic> json) =>
-      _$$_ProfilePageDataFromJson(json);
+class _$_ProfilePageData extends _ProfilePageData {
+  const _$_ProfilePageData(
+      {this.showNavigation = true,
+      final List<StoreListModel> storeList = const <StoreListModel>[]})
+      : _storeList = storeList,
+        super._();
 
   @override
+  @JsonKey()
   final bool showNavigation;
+  final List<StoreListModel> _storeList;
+  @override
+  @JsonKey()
+  List<StoreListModel> get storeList {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_storeList);
+  }
 
   @override
   String toString() {
-    return 'ProfilePageData(showNavigation: $showNavigation)';
+    return 'ProfilePageData(showNavigation: $showNavigation, storeList: $storeList)';
   }
 
   @override
@@ -114,36 +129,33 @@ class _$_ProfilePageData implements _ProfilePageData {
         (other.runtimeType == runtimeType &&
             other is _$_ProfilePageData &&
             const DeepCollectionEquality()
-                .equals(other.showNavigation, showNavigation));
+                .equals(other.showNavigation, showNavigation) &&
+            const DeepCollectionEquality()
+                .equals(other._storeList, _storeList));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(showNavigation));
+      runtimeType,
+      const DeepCollectionEquality().hash(showNavigation),
+      const DeepCollectionEquality().hash(_storeList));
 
   @JsonKey(ignore: true)
   @override
   _$$_ProfilePageDataCopyWith<_$_ProfilePageData> get copyWith =>
       __$$_ProfilePageDataCopyWithImpl<_$_ProfilePageData>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ProfilePageDataToJson(
-      this,
-    );
-  }
 }
 
-abstract class _ProfilePageData implements ProfilePageData {
-  const factory _ProfilePageData({required final bool showNavigation}) =
-      _$_ProfilePageData;
-
-  factory _ProfilePageData.fromJson(Map<String, dynamic> json) =
-      _$_ProfilePageData.fromJson;
+abstract class _ProfilePageData extends ProfilePageData {
+  const factory _ProfilePageData(
+      {final bool showNavigation,
+      final List<StoreListModel> storeList}) = _$_ProfilePageData;
+  const _ProfilePageData._() : super._();
 
   @override
   bool get showNavigation;
+  @override
+  List<StoreListModel> get storeList;
   @override
   @JsonKey(ignore: true)
   _$$_ProfilePageDataCopyWith<_$_ProfilePageData> get copyWith =>

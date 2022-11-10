@@ -49,7 +49,6 @@ class ShotPage extends HookConsumerWidget {
         ref.read(homepageProvider.notifier).hideNav();
       }
     });
-
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
