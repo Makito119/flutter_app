@@ -399,12 +399,7 @@ class ProfilePage extends HookConsumerWidget {
                               size: 30,
                             ),
                             onTap: () => {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          StorelistPage(),
-                                    ),
-                                  )
+                                  Navigator.of(context).pushNamed('store_list')
                                 }),
                         SizedBox(
                           height: 2,
