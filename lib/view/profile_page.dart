@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_shot_dev/model/signup_data.dart';
+import 'package:flutter_shot_dev/view/profile/storelist.dart';
 import 'package:flutter_shot_dev/view/shot/scancode.dart';
 import 'package:flutter_shot_dev/view_model/signup_notifier.dart';
 import 'package:flutter_shot_dev/widgets/alert_dialog.dart';
@@ -346,7 +347,7 @@ class ProfilePage extends HookConsumerWidget {
                         color: Colors.white54,
                         borderRadius: BorderRadius.circular(25)),
                     child: Column(
-                      children: const [
+                      children: [
                         SizedBox(
                           height: 2,
                         ),
@@ -387,17 +388,24 @@ class ProfilePage extends HookConsumerWidget {
                               thickness: 1,
                             )),
                         ListTile(
-                          dense: true,
-                          title: Text(
-                            '加盟店一覧',
-                            style: TextStyle(fontSize: 17),
-                          ),
-                          leading: Icon(Icons.store),
-                          trailing: Icon(
-                            Icons.navigate_next,
-                            size: 30,
-                          ),
-                        ),
+                            dense: true,
+                            title: Text(
+                              '加盟店一覧',
+                              style: TextStyle(fontSize: 17),
+                            ),
+                            leading: Icon(Icons.store),
+                            trailing: Icon(
+                              Icons.navigate_next,
+                              size: 30,
+                            ),
+                            onTap: () => {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          StorelistPage(),
+                                    ),
+                                  )
+                                }),
                         SizedBox(
                           height: 2,
                         ),
