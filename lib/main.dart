@@ -5,6 +5,7 @@ import 'package:flutter_shot_dev/firebase_options.dart';
 import 'package:flutter_shot_dev/view/profile/forget_password.dart';
 import 'package:flutter_shot_dev/view/profile/login.dart';
 import 'package:flutter_shot_dev/view/profile/signup.dart';
+import 'package:flutter_shot_dev/view/profile/storelist.dart';
 import 'package:flutter_shot_dev/view/profile_page.dart';
 import 'package:flutter_shot_dev/view_model/shotpage_notifier.dart';
 import 'view/homepage.dart';
@@ -31,6 +32,7 @@ class MyApp extends HookConsumerWidget {
         '/login_page': (context) => LoginPage(),
         '/signup_page': (context) => SignupPage(),
         '/forget_password': (context) => ForgetPassword(),
+        '/store_list': (context) => StorelistPage(),
       },
       //title: 'Flutter Demo',
       theme: ThemeData(
