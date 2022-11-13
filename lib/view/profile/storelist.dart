@@ -18,32 +18,30 @@ class StorelistPage extends HookConsumerWidget {
         backgroundColor: Colors.black,
         appBar: AppBar(
           title: Text('加盟店リスト'),
+          backgroundColor: Color(0xff2c233a),
           //加盟店用
         ),
         body: Container(
           //child: Text('Entry ${storeList[index].name}'),
           child: storeList.when(
             data: (store) {
-              print(store[0].address);
-              print(store.length);
+              //print(store[0].address);
+              //print(store.length);
 
               return ListView.builder(
                   itemCount: store.length, //List(List名).length
                   itemBuilder: (BuildContext context, int index) {
                     return SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.95,
+                      width: MediaQuery.of(context).size.width * 0.88,
                       height: MediaQuery.of(context).size.height * 0.155,
                       child: Card(
                         color: Colors.white,
                         shadowColor: Colors.white,
-                        elevation: 2,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         margin: const EdgeInsets.only(
                           top: 10,
-                          right: 10,
-                          left: 10,
                         ),
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         child: Row(
@@ -67,7 +65,9 @@ class StorelistPage extends HookConsumerWidget {
                                 height: double.infinity,
                                 width: double.infinity,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(top: 30.0),
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          0.025),
                                   child: Column(
                                     children: [
                                       Expanded(
@@ -80,12 +80,17 @@ class StorelistPage extends HookConsumerWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text('${store[index].name}',
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20,
-                                                  ),
-                                                  textAlign: TextAlign.left),
+                                              FittedBox(
+                                                fit: BoxFit.fitWidth,
+                                                child: Text(
+                                                    '${store[index].name}',
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20,
+                                                    ),
+                                                    textAlign: TextAlign.left),
+                                              ),
                                               Text('${store[index].address}',
                                                   textAlign: TextAlign.left),
                                             ],
@@ -95,7 +100,6 @@ class StorelistPage extends HookConsumerWidget {
                                       Expanded(
                                         flex: 1, // 2 要素分の横幅
                                         child: Container(
-                                          //color: Colors.blue,
                                           alignment: Alignment.centerLeft,
                                           height: 80,
                                           width: double.infinity,

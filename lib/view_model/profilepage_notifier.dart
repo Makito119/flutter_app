@@ -30,7 +30,6 @@ class StoreListNotifier
     try {
       final snapshots =
           await FirebaseFirestore.instance.collection('store').limit(10).get();
-
       fetchedLastDoc = snapshots.docs.last;
       state = AsyncValue.data([
         ...snapshots.docs.map((e) => (StoreListModel(e.data()['address'],
