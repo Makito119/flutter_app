@@ -11,8 +11,9 @@ final profilepageProvider =
   return ProfilePageNotifier(ref.read);
 });
 
-final storeListProvider = StateNotifierProvider<StoreListNotifier,
-    AsyncValue<List<StoreListModel>>>((ref) {
+final storeListProvider =
+    StateNotifierProvider<StoreListNotifier, AsyncValue<List<StoreListModel>>>(
+        (ref) {
   return StoreListNotifier(ref.read);
 });
 
@@ -26,14 +27,18 @@ class StoreListNotifier
 
   Future<void> fetchFirstPosts() async {
     //state = const AsyncLoading();
-    final snapshots =
-        await FirebaseFirestore.instance.collection('store').limit(10).get();
+    try {
+      final snapshots =
+          await FirebaseFirestore.instance.collection('store').limit(10).get();
 
-    fetchedLastDoc = snapshots.docs.last;
-    state = AsyncValue.data([
-      ...snapshots.docs.map((e) => (StoreListModel(e.data()['name'],
-          e.data()['address'], e.data()['img_url'], e.data()['phone']))),
-    ]);
+      fetchedLastDoc = snapshots.docs.last;
+      state = AsyncValue.data([
+        ...snapshots.docs.map((e) => (StoreListModel(e.data()['address'],
+            e.data()['img_url'], e.data()['name'], e.data()['phone']))),
+      ]);
+    } catch (err, stack) {
+      state = AsyncValue.error(err, stackTrace: stack);
+    }
   }
 }
 
@@ -57,12 +62,12 @@ class ProfilePageNotifier extends StateNotifier<ProfilePageData> {
         await FirebaseFirestore.instance.collection('store').limit(10).get();
     fetchedLastDoc = snapshots.docs.last;
     state = state.copyWith(storeList: [
-      ...snapshots.docs.map((e) => (StoreListModel(e.data()['name'],
-          e.data()['address'], e.data()['img_url'], e.data()['phone']))),
+      ...snapshots.docs.map((e) => (StoreListModel(e.data()['address'],
+          e.data()['img_url'], e.data()['name'], e.data()['phone']))),
     ]);
   }
 
-  // Future<void> fetchPosts() async {
+  //Future<void> fetchPosts() async {
   // // TODO: 後ほど実装
   // final snapshots = await FirebaseFirestore.instance
   //     .collection('posts')
