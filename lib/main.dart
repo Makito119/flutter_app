@@ -5,8 +5,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_shot_dev/firebase_options.dart';
 import 'package:flutter_shot_dev/view/profile/forget_password.dart';
 import 'package:flutter_shot_dev/view/profile/login.dart';
+import 'package:flutter_shot_dev/view/profile/member_inf.dart';
+import 'package:flutter_shot_dev/view/profile/privacypolicy.dart';
 import 'package:flutter_shot_dev/view/profile/signup.dart';
 import 'package:flutter_shot_dev/view/profile/storelist.dart';
+import 'package:flutter_shot_dev/view/profile/tos.dart';
 import 'package:flutter_shot_dev/view/profile_page.dart';
 import 'package:flutter_shot_dev/view_model/shotpage_notifier.dart';
 import 'view/homepage.dart';
@@ -36,7 +39,11 @@ class MyApp extends HookConsumerWidget {
         '/signup_page': (context) => SignupPage(),
         '/forget_password': (context) => ForgetPassword(),
         '/store_list': (context) => StorelistPage(),
+        '/memberinf_page': (context) => memberinfpage(),
+        '/privacypolicy_page': (context) => privacypolicypage(),
+        '/tos_page': (context) => tospage(),
       },
+
       //title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,

@@ -349,18 +349,21 @@ class ProfilePage extends HookConsumerWidget {
                         const SizedBox(
                           height: 2,
                         ),
-                        const ListTile(
-                          dense: true,
-                          title: Text(
-                            '会員情報',
-                            style: TextStyle(fontSize: 17),
-                          ),
-                          leading: Icon(Icons.manage_accounts),
-                          trailing: Icon(
-                            Icons.navigate_next,
-                            size: 30,
-                          ),
-                        ),
+                        ListTile(
+                            dense: true,
+                            title: const Text(
+                              '会員情報',
+                              style: TextStyle(fontSize: 17),
+                            ),
+                            leading: Icon(Icons.manage_accounts),
+                            trailing: const Icon(
+                              Icons.navigate_next,
+                              size: 30,
+                            ),
+                            onTap: () => {
+                                  Navigator.of(context)
+                                      .pushNamed('/memberinf_page')
+                                }),
                         const Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Divider(
@@ -411,24 +414,25 @@ class ProfilePage extends HookConsumerWidget {
                         color: Colors.white54,
                         borderRadius: BorderRadius.circular(25)),
                     child: Column(
-                      children: const [
-                        SizedBox(
+                      children: [
+                        const SizedBox(
                           height: 2,
                         ),
                         ListTile(
-                          dense: true,
-                          title: Text(
-                            '利用規約',
-                            style: TextStyle(fontSize: 17),
-                          ),
-                          leading: Icon(
-                            Icons.policy,
-                          ),
-                          trailing: Icon(
-                            Icons.navigate_next,
-                            size: 30,
-                          ),
-                        ),
+                            dense: true,
+                            title: const Text(
+                              '利用規約',
+                              style: TextStyle(fontSize: 17),
+                            ),
+                            leading: const Icon(
+                              Icons.policy,
+                            ),
+                            trailing: const Icon(
+                              Icons.navigate_next,
+                              size: 30,
+                            ),
+                            onTap: () =>
+                                {Navigator.of(context).pushNamed('/tos_page')}),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Divider(
@@ -436,17 +440,20 @@ class ProfilePage extends HookConsumerWidget {
                               thickness: 1,
                             )),
                         ListTile(
-                          dense: true,
-                          title: Text(
-                            'プライバシーポリシー',
-                            style: TextStyle(fontSize: 17),
-                          ),
-                          leading: Icon(Icons.verified_user),
-                          trailing: Icon(
-                            Icons.navigate_next,
-                            size: 30,
-                          ),
-                        ),
+                            dense: true,
+                            title: Text(
+                              'プライバシーポリシー',
+                              style: TextStyle(fontSize: 17),
+                            ),
+                            leading: Icon(Icons.verified_user),
+                            trailing: Icon(
+                              Icons.navigate_next,
+                              size: 30,
+                            ),
+                            onTap: () => {
+                                  Navigator.of(context)
+                                      .pushNamed('/privacypolicy_page')
+                                }),
                         Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             child: Divider(
