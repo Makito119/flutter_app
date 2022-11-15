@@ -10,11 +10,9 @@ class MemberinfPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-          backgroundColor: Color(0xff2c233a),
-          shadowColor: Color(0x7f840899),
-          elevation: 10,
-        ));
+      appBar: AppBar(
+        title: Text('会員情報'),
+      ),
+    );
   }
 }
