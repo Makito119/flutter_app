@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shot_dev/view/profile/tos.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../widgets/tos_widget.dart';
+
 class PrivacyPolicyPage extends HookConsumerWidget {
   PrivacyPolicyPage({
     Key? key,
