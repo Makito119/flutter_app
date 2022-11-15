@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../widgets/tos_widget.dart';
+
 class TosPage extends HookConsumerWidget {
   TosPage({
     Key? key,
@@ -147,102 +149,5 @@ class TosPage extends HookConsumerWidget {
             ),
           ),
         ));
-  }
-}
-
-class titleWidget extends StatelessWidget {
-  final String title;
-  const titleWidget({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
-    );
-  }
-}
-
-class TosWidget {
-  static titleBar({required BuildContext context, required String title}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30.0, bottom: 10),
-      child: Text(
-        title,
-        style: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
-      ),
-    );
-  }
-
-  static itemBar(
-      {required BuildContext context,
-      required int index,
-      required String text}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '${index}.　',
-            style: TextStyle(fontSize: 10, color: Colors.white),
-          ),
-          Flexible(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 10, color: Colors.white),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  static itemsabBar(
-      {required BuildContext context,
-      required int index,
-      required String text}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 50),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '${index}.　',
-            style: TextStyle(fontSize: 10, color: Colors.white),
-          ),
-          Flexible(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 10, color: Colors.white),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  static oneitemBar({required BuildContext context, required String text}) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 10,
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Flexible(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 10, color: Colors.white),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
