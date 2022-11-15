@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // ignore: camel_case_types
-class memberinfpage extends HookConsumerWidget {
-  memberinfpage({
+class MemberinfPage extends HookConsumerWidget {
+  MemberinfPage({
     Key? key,
   }) : super(key: key);
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -362,7 +362,7 @@ class ProfilePage extends HookConsumerWidget {
                             ),
                             onTap: () => {
                                   Navigator.of(context)
-                                      .pushNamed('/memberinf_page')
+                                      .pushNamed('/memberinfpage')
                                 }),
                         const Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -432,7 +432,7 @@ class ProfilePage extends HookConsumerWidget {
                               size: 30,
                             ),
                             onTap: () =>
-                                {Navigator.of(context).pushNamed('/tos_page')}),
+                                {Navigator.of(context).pushNamed('/tospage')}),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Divider(
@@ -452,7 +452,7 @@ class ProfilePage extends HookConsumerWidget {
                             ),
                             onTap: () => {
                                   Navigator.of(context)
-                                      .pushNamed('/privacypolicy_page')
+                                      .pushNamed('/privacypolicypage')
                                 }),
                         Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20),

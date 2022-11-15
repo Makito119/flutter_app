@@ -39,9 +39,9 @@ class MyApp extends HookConsumerWidget {
         '/signup_page': (context) => SignupPage(),
         '/forget_password': (context) => ForgetPassword(),
         '/store_list': (context) => StorelistPage(),
-        '/memberinf_page': (context) => memberinfpage(),
-        '/privacypolicy_page': (context) => privacypolicypage(),
-        '/tos_page': (context) => tospage(),
+        '/memberinfpage': (context) => MemberinfPage(),
+        '/privacypolicypage': (context) => PrivacyPolicyPage(),
+        '/tospage': (context) => TosPage(),
       },
 
       //title: 'Flutter Demo',
