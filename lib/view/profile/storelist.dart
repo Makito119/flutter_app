@@ -19,6 +19,8 @@ class StorelistPage extends HookConsumerWidget {
         appBar: AppBar(
           title: Text('加盟店リスト'),
           backgroundColor: Color(0xff2c233a),
+          shadowColor: Color(0x7f840899),
+          elevation: 10,
           //加盟店用
         ),
         body: Container(
