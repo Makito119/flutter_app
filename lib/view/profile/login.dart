@@ -325,8 +325,8 @@ class LoginPage extends HookConsumerWidget {
                                         child: Text(
                                           '新規登録はこちら',
                                           style: TextStyle(
-                                              color: Colors.blue,
-                                              fontSize: 17,
+                                              color: Colors.white,
+                                              fontSize: 14,
                                               fontFamily: "Inter",
                                               decoration:
                                                   TextDecoration.underline),
