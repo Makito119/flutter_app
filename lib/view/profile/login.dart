@@ -386,40 +386,40 @@ class LoginPage extends HookConsumerWidget {
                               });
                             },
                             child: Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.065,
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                alignment: Alignment.center,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                        width: 35.0,
-                                        height: 35.0,
-                                        decoration: new BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image: new DecorationImage(
-                                                fit: BoxFit.fill,
-                                                image: new NetworkImage(
-                                                    "https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1=w240-h480-rw")))),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
-                                      child: Text(' Googleでログイン',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontFamily: "Inter",
-                                            fontWeight: FontWeight.w700,
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(130),
-                                  boxShadow: [],
-                                )),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white),
+                                borderRadius: BorderRadius.circular(130),
+                                boxShadow: [],
+                              ),
+                              height:
+                                  MediaQuery.of(context).size.height * 0.065,
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                      width: 35.0,
+                                      height: 35.0,
+                                      decoration: new BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: new DecorationImage(
+                                              fit: BoxFit.fill,
+                                              image: new NetworkImage(
+                                                  "https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1=w240-h480-rw")))),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(' Googleでログイン',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontFamily: "Inter",
+                                          fontWeight: FontWeight.w700,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ]),
                   ),

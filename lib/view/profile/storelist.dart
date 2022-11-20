@@ -4,32 +4,29 @@ import 'package:flutter_shot_dev/view_model/profilepage_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class StorelistPage extends HookConsumerWidget {
-  StorelistPage({
+  const StorelistPage({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
+      //加盟店をリストに追加
       ref.read(storeListProvider.notifier).fetchFirstPosts();
+      return null;
     }, const []);
     final storeList = ref.watch(storeListProvider);
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text('加盟店リスト'),
-          backgroundColor: Color(0xff2c233a),
-          shadowColor: Color(0x7f840899),
+          title: const Text('加盟店リスト'),
+          backgroundColor: const Color(0xff2c233a),
+          shadowColor: const Color(0x7f840899),
           elevation: 10,
-          //加盟店用
         ),
-        body: Container(
-          //child: Text('Entry ${storeList[index].name}'),
+        body: SafeArea(
           child: storeList.when(
             data: (store) {
-              //print(store[0].address);
-              //print(store.length);
-
               return ListView.builder(
                   itemCount: store.length, //List(List名).length
                   itemBuilder: (BuildContext context, int index) {
@@ -38,7 +35,7 @@ class StorelistPage extends HookConsumerWidget {
                       height: MediaQuery.of(context).size.height * 0.155,
                       child: Card(
                         color: Colors.white,
-                        shadowColor: Colors.white,
+                        shadowColor: const Color(0x7f840899),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -48,34 +45,34 @@ class StorelistPage extends HookConsumerWidget {
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         child: Row(
                           children: [
+                            //店舗写真
                             Expanded(
                               flex: 3, // 1 要素分の横幅
-                              child: Container(
-                                //color: Colors.red,
+                              child: SizedBox(
                                 height: double.infinity,
                                 width: double.infinity,
                                 child: Image.network(
-                                  '${store[index].img_url}',
+                                  store[index].img_url,
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
+                            //店舗情報
                             Expanded(
                               flex: 5, // 2 要素分の横幅
-                              child: Container(
-                                // color: Colors.blue,
+                              child: SizedBox(
                                 height: double.infinity,
                                 width: double.infinity,
                                 child: Padding(
                                   padding: EdgeInsets.only(
+                                      left: 5,
                                       top: MediaQuery.of(context).size.height *
                                           0.025),
                                   child: Column(
                                     children: [
                                       Expanded(
-                                        flex: 3, // 1 要素分の横幅
-                                        child: Container(
-                                          //color: Colors.black,
+                                        flex: 3,
+                                        child: SizedBox(
                                           height: double.infinity,
                                           width: double.infinity,
                                           child: Column(
@@ -84,8 +81,7 @@ class StorelistPage extends HookConsumerWidget {
                                             children: [
                                               FittedBox(
                                                 fit: BoxFit.fitWidth,
-                                                child: Text(
-                                                    '${store[index].name}',
+                                                child: Text(store[index].name,
                                                     style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -93,7 +89,7 @@ class StorelistPage extends HookConsumerWidget {
                                                     ),
                                                     textAlign: TextAlign.left),
                                               ),
-                                              Text('${store[index].address}',
+                                              Text(store[index].address,
                                                   textAlign: TextAlign.left),
                                             ],
                                           ),
@@ -103,10 +99,8 @@ class StorelistPage extends HookConsumerWidget {
                                         flex: 1, // 2 要素分の横幅
                                         child: Container(
                                           alignment: Alignment.centerLeft,
-                                          height: 80,
-                                          width: double.infinity,
                                           child: Text(
-                                            'TEL:${store[index].phone}',
+                                            'TEL: ${store[index].phone}',
                                           ),
                                         ),
                                       ),
@@ -125,7 +119,7 @@ class StorelistPage extends HookConsumerWidget {
               return const Text("An error occurred");
             },
             loading: () {
-              return Center(child: const CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             },
           ),
         ));
