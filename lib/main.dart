@@ -31,6 +31,7 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
       ref.read(shotpageProvider.notifier).fetchFirstPosts();
+      return null;
     }, const []);
     return MaterialApp(
       routes: {
@@ -39,11 +40,16 @@ class MyApp extends HookConsumerWidget {
         '/login_page': (context) => LoginPage(),
         '/signup_page': (context) => SignupPage(),
         '/forget_password': (context) => ForgetPassword(),
-        '/store_list': (context) => StorelistPage(),
+        '/store_list': (context) => const StorelistPage(),
         '/memberinfpage': (context) => MemberinfPage(),
+<<<<<<< HEAD
         '/privacypolicypage': (context) => PrivacyPolicyPage(),
         '/tospage': (context) => TosPage(),
         '/notmemberinfpage': (context) => NotMemberinfPage(),
+=======
+        '/privacypolicypage': (context) => const PrivacyPolicyPage(),
+        '/tospage': (context) => const TosPage(),
+>>>>>>> 301494999730d4b097fcb02fdbecfd89a25f3073
       },
 
       //title: 'Flutter Demo',

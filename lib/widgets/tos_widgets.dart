@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TosWidget {
@@ -23,13 +22,13 @@ class TosWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${index}.　',
-            style: TextStyle(fontSize: 10, color: Colors.white),
+            '$index.　',
+            style: const TextStyle(fontSize: 10, color: Colors.white),
           ),
           Flexible(
             child: Text(
               text,
-              style: TextStyle(fontSize: 10, color: Colors.white),
+              style: const TextStyle(fontSize: 10, color: Colors.white),
             ),
           ),
         ],
@@ -47,13 +46,13 @@ class TosWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${index}.　',
-            style: TextStyle(fontSize: 10, color: Colors.white),
+            '$index.　',
+            style: const TextStyle(fontSize: 10, color: Colors.white),
           ),
           Flexible(
             child: Text(
               text,
-              style: TextStyle(fontSize: 10, color: Colors.white),
+              style: const TextStyle(fontSize: 10, color: Colors.white),
             ),
           ),
         ],
@@ -72,7 +71,7 @@ class TosWidget {
           Flexible(
             child: Text(
               text,
-              style: TextStyle(fontSize: 10, color: Colors.white),
+              style: const TextStyle(fontSize: 10, color: Colors.white),
             ),
           ),
         ],
