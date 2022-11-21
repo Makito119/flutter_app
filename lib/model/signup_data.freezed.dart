@@ -14,16 +14,14 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SignUpData _$SignUpDataFromJson(Map<String, dynamic> json) {
-  return _SignUpData.fromJson(json);
-}
-
 /// @nodoc
 mixin _$SignUpData {
   String? get name => throw _privateConstructorUsedError;
   String? get uid => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
+  String? get gender => throw _privateConstructorUsedError;
+  String? get imag_url => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SignUpDataCopyWith<SignUpData> get copyWith =>
       throw _privateConstructorUsedError;
@@ -34,7 +32,12 @@ abstract class $SignUpDataCopyWith<$Res> {
   factory $SignUpDataCopyWith(
           SignUpData value, $Res Function(SignUpData) then) =
       _$SignUpDataCopyWithImpl<$Res>;
-  $Res call({String? name, String? uid});
+  $Res call(
+      {String? name,
+      String? uid,
+      String? phone,
+      String? gender,
+      String? imag_url});
 }
 
 /// @nodoc
@@ -49,6 +52,9 @@ class _$SignUpDataCopyWithImpl<$Res> implements $SignUpDataCopyWith<$Res> {
   $Res call({
     Object? name = freezed,
     Object? uid = freezed,
+    Object? phone = freezed,
+    Object? gender = freezed,
+    Object? imag_url = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -58,6 +64,18 @@ class _$SignUpDataCopyWithImpl<$Res> implements $SignUpDataCopyWith<$Res> {
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gender: gender == freezed
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imag_url: imag_url == freezed
+          ? _value.imag_url
+          : imag_url // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -70,7 +88,12 @@ abstract class _$$_SignUpDataCopyWith<$Res>
           _$_SignUpData value, $Res Function(_$_SignUpData) then) =
       __$$_SignUpDataCopyWithImpl<$Res>;
   @override
-  $Res call({String? name, String? uid});
+  $Res call(
+      {String? name,
+      String? uid,
+      String? phone,
+      String? gender,
+      String? imag_url});
 }
 
 /// @nodoc
@@ -87,6 +110,9 @@ class __$$_SignUpDataCopyWithImpl<$Res> extends _$SignUpDataCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? uid = freezed,
+    Object? phone = freezed,
+    Object? gender = freezed,
+    Object? imag_url = freezed,
   }) {
     return _then(_$_SignUpData(
       name: name == freezed
@@ -97,17 +123,31 @@ class __$$_SignUpDataCopyWithImpl<$Res> extends _$SignUpDataCopyWithImpl<$Res>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String?,
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gender: gender == freezed
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imag_url: imag_url == freezed
+          ? _value.imag_url
+          : imag_url // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_SignUpData implements _SignUpData {
-  const _$_SignUpData({this.name = '', this.uid = ''});
 
-  factory _$_SignUpData.fromJson(Map<String, dynamic> json) =>
-      _$$_SignUpDataFromJson(json);
+class _$_SignUpData implements _SignUpData {
+  const _$_SignUpData(
+      {this.name = '',
+      this.uid = '',
+      this.phone = '',
+      this.gender = '',
+      this.imag_url = ''});
 
   @override
   @JsonKey()
@@ -115,10 +155,19 @@ class _$_SignUpData implements _SignUpData {
   @override
   @JsonKey()
   final String? uid;
+  @override
+  @JsonKey()
+  final String? phone;
+  @override
+  @JsonKey()
+  final String? gender;
+  @override
+  @JsonKey()
+  final String? imag_url;
 
   @override
   String toString() {
-    return 'SignUpData(name: $name, uid: $uid)';
+    return 'SignUpData(name: $name, uid: $uid, phone: $phone, gender: $gender, imag_url: $imag_url)';
   }
 
   @override
@@ -127,40 +176,45 @@ class _$_SignUpData implements _SignUpData {
         (other.runtimeType == runtimeType &&
             other is _$_SignUpData &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.uid, uid));
+            const DeepCollectionEquality().equals(other.uid, uid) &&
+            const DeepCollectionEquality().equals(other.phone, phone) &&
+            const DeepCollectionEquality().equals(other.gender, gender) &&
+            const DeepCollectionEquality().equals(other.imag_url, imag_url));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(uid));
+      const DeepCollectionEquality().hash(uid),
+      const DeepCollectionEquality().hash(phone),
+      const DeepCollectionEquality().hash(gender),
+      const DeepCollectionEquality().hash(imag_url));
 
   @JsonKey(ignore: true)
   @override
   _$$_SignUpDataCopyWith<_$_SignUpData> get copyWith =>
       __$$_SignUpDataCopyWithImpl<_$_SignUpData>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_SignUpDataToJson(
-      this,
-    );
-  }
 }
 
 abstract class _SignUpData implements SignUpData {
-  const factory _SignUpData({final String? name, final String? uid}) =
-      _$_SignUpData;
-
-  factory _SignUpData.fromJson(Map<String, dynamic> json) =
-      _$_SignUpData.fromJson;
+  const factory _SignUpData(
+      {final String? name,
+      final String? uid,
+      final String? phone,
+      final String? gender,
+      final String? imag_url}) = _$_SignUpData;
 
   @override
   String? get name;
   @override
   String? get uid;
+  @override
+  String? get phone;
+  @override
+  String? get gender;
+  @override
+  String? get imag_url;
   @override
   @JsonKey(ignore: true)
   _$$_SignUpDataCopyWith<_$_SignUpData> get copyWith =>

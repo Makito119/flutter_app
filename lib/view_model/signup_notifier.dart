@@ -12,9 +12,11 @@ class SignUpNotifier extends StateNotifier<SignUpData> {
   final Reader _read;
   SignUpNotifier(this._read)
       : super(SignUpData(
-          uid: FirebaseAuth.instance.currentUser?.uid,
-          name: ' ',
-        ));
+            uid: FirebaseAuth.instance.currentUser?.uid,
+            name: '',
+            gender: '',
+            phone: '',
+            imag_url: ''));
 
   void nameInput(index) {
     state = state.copyWith(name: index);
