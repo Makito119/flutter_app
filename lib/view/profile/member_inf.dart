@@ -228,7 +228,8 @@ class MemberinfPage extends HookConsumerWidget {
                                                   builder: (context) =>
                                                       CupertinoActionSheet(
                                                         actions: [
-                                                          birthdey(dateTime)
+                                                          birthdayPicker(
+                                                              dateTime)
                                                         ],
                                                         cancelButton:
                                                             CupertinoActionSheetAction(
@@ -303,7 +304,7 @@ class MemberinfPage extends HookConsumerWidget {
         ),
       );
 //生年月日のドラムロール要素
-  Widget birthdey(birthdeydate) => SizedBox(
+  Widget birthdayPicker(birthdeydate) => SizedBox(
         height: 300,
         child: CupertinoDatePicker(
           initialDateTime: dateTime,

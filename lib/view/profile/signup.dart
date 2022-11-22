@@ -55,7 +55,7 @@ class SignupPage extends HookConsumerWidget {
             'phone': '',
             'gender': '',
             'birthday': '',
-            'imag_url': '',
+            'img_url': '',
             'cid': _uid
           });
           ref
